@@ -10,21 +10,41 @@
     </head>
     <body>
         <!-- Initial Login Screen, hide this after click button to login -->
+        <div id="login-form-div">
+            <form id="login-form">
 
-
-        <!-- Main Screen Hidden at first, visible after login -->
-        <div id="left-container">
-            <div id='decks-list'>
-                DECK LIST GOES HERE
-            </div>
+            </form>
         </div>
 
-        <div id="right-container">
-            <div id="flashcard-container">
-                FLASHCARD GOES HERE
-            </div>
-            <div id="flashcard-buttons">
-                FLASHCARD BUTTON GOES HERE
+        <!-- Main Screen Hidden at first, visible after login -->
+        <div id="main-container" class="container-fluid container-cover">
+            <div class='row'>
+
+                <div id="left-container" class="col-2 border border-primary">
+                    <div id='decks-list'>
+                        <p>Your Decks</p>
+                        <button id='new-deck'>New Deck</button>
+                        <p>Deck 1</p>
+                        <p>Deck 2</p>
+                    </div>
+                    <footer class="footer fixed-bottom">
+                        <span>Created by Kunal Shah</span>
+                    </footer>
+                </div>
+        
+                <div id="right-container" class="col-10 border border-danger">
+                    <div id="flashcard-container">
+                        FLASHCARD GOES HERE
+                    </div>
+                    <div id="flashcard-buttons">
+                        <button id="previous" disabled="true">Previous</button>
+                        <button id="next" disabled="true">Next</button>
+                        <button id="flip" disabled="true">Flip</button>
+                        <button id="new-flashcard" disabled="true">New Flashcard</button>
+                        <button id="edit-flashcard" disabled="true">Edit Flashcard</button>
+                    </div>
+                </div>
+
             </div>
         </div>
 

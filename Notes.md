@@ -1,11 +1,13 @@
 1. Create a render function for decks to use in the fetch request .then function
 
-
+2. Move the new deck form function + addeventlistener to Deck object
+3. Add that when new deck form is submitted - prevent default and change form back to display:none
 
 
 
 
 1. Implement .catch() in fetch requests to handle errors.
+
 
 
 click on a deck, then the first flashcard appends to the DOM and

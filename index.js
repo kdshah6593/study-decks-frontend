@@ -1,11 +1,22 @@
 const endPoint = "http://localhost:3000/api/v1/decks";
 const decksList = document.getElementById('decks-list')
+const newDeckBtn = document.getElementById('new-deck-btn')
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    alert('LOADED')
-    Deck.getDecks()
-});
+const handleNewDeck = () => {
+    const newDeckForm = document.getElementById('new-deck')
+    if (newDeckForm.style.display === 'none') {
+        newDeckForm.style.display = ''
+    } else {
+        newDeckForm.style.display = 'none'
+    }
+}
+
+newDeckBtn.addEventListener('click', handleNewDeck)
+
+
+
+Deck.getDecks()
 
 //fetch http://localhost:3000/api/v1/decks
 //fetch http://localhost:3000/api/v1/users/1

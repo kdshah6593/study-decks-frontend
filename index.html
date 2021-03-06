@@ -23,8 +23,15 @@
                 <div id="left-container" class="col-2 border border-primary">
                     <div id='decks-list-div'>
                         <h4>Your Decks</h4>
-                        <button id='new-deck' class="btn btn-sm btn-primary">New Deck</button>
-                        <ul id='decks-list'>
+                        <button id='new-deck-btn' class="btn btn-sm btn-primary">New Deck</button>
+                        <ul id='decks-list' class="list-unstyled">
+                            <li id='new-deck' style="display:none;">
+                                <form id='new-deck-form'>
+                                    <input id='input-title' type='text' name='title' value="" placeholder="Enter Deck Title">
+                                    <br>
+                                    <input id='create-deck-button' type='submit' name='deck-submit' value="Create New Deck">
+                                </form>
+                            </li>
                         </ul>
                   
                     </div>

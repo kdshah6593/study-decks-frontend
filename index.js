@@ -2,10 +2,58 @@ const endPoint = "http://localhost:3000/api/v1/decks";
 const decksList = document.getElementById('decks-list')
 
 
+
 document.addEventListener('DOMContentLoaded', () => {
-    alert('LOADED')
     Deck.getDecks()
-});
+
+    const newDeckBtn = document.getElementById('new-deck-btn')
+    newDeckBtn.addEventListener('click', handleNewDeckDisplay)
+
+    const newDeckForm = document.getElementById('new-deck-form')
+    newDeckForm.addEventListener('submit', (e) => handleNewDeckSubmit(e))
+})
+
+
+const handleNewDeckDisplay = () => {
+    const newDeckForm = document.getElementById('new-deck')
+    if (newDeckForm.style.display === 'none') {
+        newDeckForm.style.display = ''
+    } else {
+        newDeckForm.style.display = 'none'
+    }
+}
+
+const handleNewDeckSubmit = (e) => {
+    e.preventDefault()
+    const inputTitle = document.querySelector('#input-title').value
+    const inputUserId = parseInt("1") //need to remove the hard-coded user
+
+    postNewDeck(inputTitle, inputUserId)
+}
+
+const postNewDeck = (title, user_id) => {
+    const inputData = {title, user_id}
+
+    fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(inputData)
+    })
+    .then(resp => resp.json())
+    .then(deck => {
+        console.log(deck)
+        const deckData = deck.data
+
+        const deckLi = document.createElement('li');
+        deckLi.dataset.id = deckData.id
+        deckLi.id = deckData.attributes.title
+        deckLi.innerText = `${deckData.attributes.title}`
+        decksList.append(deckLi);
+    })
+}
 
 //fetch http://localhost:3000/api/v1/decks
 //fetch http://localhost:3000/api/v1/users/1

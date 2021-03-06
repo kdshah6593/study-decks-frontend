@@ -1,9 +1,20 @@
 const endPoint = "http://localhost:3000/api/v1/decks";
 const decksList = document.getElementById('decks-list')
-const newDeckBtn = document.getElementById('new-deck-btn')
 
 
-const handleNewDeck = () => {
+
+document.addEventListener('DOMContentLoaded', () => {
+    Deck.getDecks()
+
+    const newDeckBtn = document.getElementById('new-deck-btn')
+    newDeckBtn.addEventListener('click', handleNewDeckDisplay)
+
+    const newDeckForm = document.getElementById('new-deck-form')
+    newDeckForm.addEventListener('submit', (e) => handleNewDeckSubmit(e))
+})
+
+
+const handleNewDeckDisplay = () => {
     const newDeckForm = document.getElementById('new-deck')
     if (newDeckForm.style.display === 'none') {
         newDeckForm.style.display = ''
@@ -12,11 +23,18 @@ const handleNewDeck = () => {
     }
 }
 
-newDeckBtn.addEventListener('click', handleNewDeck)
+const handleNewDeckSubmit = (e) => {
+    e.preventDefault()
+    debugger
+    const inputTitle = document.querySelector('#input-title')
+    const inputUserId = parseInt("1") //need to remove the hard-coded user
 
+    postNewDeck(inputTitle, inputUserId)
+}
 
-
-Deck.getDecks()
+const postNewDeck = (title, user_id) => {
+    console.log(title, user_id)
+}
 
 //fetch http://localhost:3000/api/v1/decks
 //fetch http://localhost:3000/api/v1/users/1

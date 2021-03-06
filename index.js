@@ -25,15 +25,34 @@ const handleNewDeckDisplay = () => {
 
 const handleNewDeckSubmit = (e) => {
     e.preventDefault()
-    debugger
-    const inputTitle = document.querySelector('#input-title')
+    const inputTitle = document.querySelector('#input-title').value
     const inputUserId = parseInt("1") //need to remove the hard-coded user
 
     postNewDeck(inputTitle, inputUserId)
 }
 
 const postNewDeck = (title, user_id) => {
-    console.log(title, user_id)
+    const inputData = {title, user_id}
+
+    fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(inputData)
+    })
+    .then(resp => resp.json())
+    .then(deck => {
+        console.log(deck)
+        const deckData = deck.data
+
+        const deckLi = document.createElement('li');
+        deckLi.dataset.id = deckData.id
+        deckLi.id = deckData.attributes.title
+        deckLi.innerText = `${deckData.attributes.title}`
+        decksList.append(deckLi);
+    })
 }
 
 //fetch http://localhost:3000/api/v1/decks

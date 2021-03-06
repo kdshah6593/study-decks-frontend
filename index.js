@@ -1,19 +1,10 @@
+const endPoint = "http://localhost:3000/api/v1/decks";
+const decksList = document.getElementById('decks-list')
+
+
 document.addEventListener('DOMContentLoaded', () => {
     alert('LOADED')
-    const endPoint = "http://localhost:3000/api/v1/decks";
-    fetch(endPoint)
-    .then(response => response.json())
-    .then(json => json.data.forEach(deck => {
-        const markup = `
-        <li>
-            <h3>${deck.attributes.title}
-            <button>edit</button>
-            </h3>
-        </li>`;
-
-        document.querySelector('#decks-list').innerHTML += markup;
-        })
-    );
+    Deck.getDecks()
 });
 
 //fetch http://localhost:3000/api/v1/decks

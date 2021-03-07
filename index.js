@@ -49,8 +49,8 @@ const postNewDeck = (title, user_id) => {
     })
     .then(resp => resp.json())
     .then(deck => {
-        const deckData = deck.data
-        Deck.renderDeck(deckData)
+        const newDeck = new Deck(deck.data, deck.data.attributes)
+        newDeck.renderDeck()
     })
 }
 

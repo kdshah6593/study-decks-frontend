@@ -2,59 +2,51 @@
 class Deck {
     static all = []
     
-    constructor(id, title, user_id) {
+    constructor(deck, deckAttributes) {
         // set properties of each deck
-        this.id = id;
-        this.title = title;
-        this.userId = user_id;
+        this.id = deck.id;
+        this.title = deckAttributes.title;
+        this.userId = deckAttributes.user_id;
+        this.flashcards = deckAttributes.flashcards;
 
         //setup the html element that will contain the deckLi
 
         //add eventListener for click on LI
 
         //remember all decks
+        Deck.all.push(this)
     }
 
-    //render a single deck
-
-
-    //attach the single deck to DOM
-
-    //returns an array of the deck's flashcards
-    flashcards = () => {
-
-    }
     //will use flashcards() return array
     displayFlashcard = () => {
 
     }
 
+    //render and attach Syllabus to DOM
+    renderDeck = () => {
+        const deckLi = document.createElement('li');
+        deckLi.dataset.id = this.id
+        deckLi.id = this.title
+        deckLi.innerText = `${this.title}`
+        decksList.append(deckLi);
+    }
 
-
-
-    // ALL API requests for the decks; should be static
     static getDecks = () => {
         fetch(endPoint)
         .then(response => response.json())
         .then(json => json.data.forEach(deck => {
-            this.renderDeck(deck)
+            let newDeck = new Deck(deck, deck.attributes)
+            newDeck.renderDeck()
             })
         );
     }
 
-    static renderDeck = (deckData) => {
-        const deckLi = document.createElement('li');
-        deckLi.dataset.id = deckData.id
-        deckLi.id = deckData.attributes.title
-        deckLi.innerText = `${deckData.attributes.title}`
-        decksList.append(deckLi);
-    }
-
+    //change this to handleNewDeckSubmit / postNewDeck methods
     static createDeck = () => {
 
     }
 
-
+    // delete fetch request
     static deleteDeck = () => {
 
     }

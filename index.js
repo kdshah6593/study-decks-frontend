@@ -29,6 +29,11 @@ const handleNewDeckSubmit = (e) => {
     const inputUserId = parseInt("1") //need to remove the hard-coded user
 
     postNewDeck(inputTitle, inputUserId)
+    // reset form
+    const deckForm = document.getElementById('new-deck-form')
+    deckForm.reset()
+    // hide form
+    handleNewDeckDisplay()
 }
 
 const postNewDeck = (title, user_id) => {
@@ -46,11 +51,6 @@ const postNewDeck = (title, user_id) => {
     .then(deck => {
         const deckData = deck.data
         Deck.renderDeck(deckData)
-        // const deckLi = document.createElement('li');
-        // deckLi.dataset.id = deckData.id
-        // deckLi.id = deckData.attributes.title
-        // deckLi.innerText = `${deckData.attributes.title}`
-        // decksList.append(deckLi);
     })
 }
 

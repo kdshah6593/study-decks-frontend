@@ -44,14 +44,13 @@ const postNewDeck = (title, user_id) => {
     })
     .then(resp => resp.json())
     .then(deck => {
-        console.log(deck)
         const deckData = deck.data
-
-        const deckLi = document.createElement('li');
-        deckLi.dataset.id = deckData.id
-        deckLi.id = deckData.attributes.title
-        deckLi.innerText = `${deckData.attributes.title}`
-        decksList.append(deckLi);
+        Deck.renderDeck(deckData)
+        // const deckLi = document.createElement('li');
+        // deckLi.dataset.id = deckData.id
+        // deckLi.id = deckData.attributes.title
+        // deckLi.innerText = `${deckData.attributes.title}`
+        // decksList.append(deckLi);
     })
 }
 

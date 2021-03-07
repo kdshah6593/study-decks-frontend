@@ -37,13 +37,17 @@ class Deck {
         fetch(endPoint)
         .then(response => response.json())
         .then(json => json.data.forEach(deck => {
-            const deckLi = document.createElement('li');
-            deckLi.dataset.id = deck.id
-            deckLi.id = deck.attributes.title
-            deckLi.innerText = `${deck.attributes.title}`
-            decksList.append(deckLi);
+            this.renderDeck(deck)
             })
         );
+    }
+
+    static renderDeck = (deckData) => {
+        const deckLi = document.createElement('li');
+        deckLi.dataset.id = deckData.id
+        deckLi.id = deckData.attributes.title
+        deckLi.innerText = `${deckData.attributes.title}`
+        decksList.append(deckLi);
     }
 
     static createDeck = () => {

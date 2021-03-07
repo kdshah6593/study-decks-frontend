@@ -9,15 +9,11 @@ class Deck {
         this.userId = deckAttributes.user_id;
         this.flashcards = deckAttributes.flashcards;
 
-        //setup the html element that will contain the deckLi
-
-        //add eventListener for click on LI
-
         //remember all decks
         Deck.all.push(this)
     }
 
-    //will use flashcards() return array
+    //append the flashcard passed into it; if no flashcard passed in, then do first flashcard of deck
     displayFlashcard = () => {
 
     }
@@ -28,8 +24,18 @@ class Deck {
         deckLi.dataset.id = this.id
         deckLi.id = this.title
         deckLi.innerText = `${this.title}`
+
+        //add eventListener for click on LI
+        deckLi.addEventListener('click', this.handleDeckClick)
+
         decksList.append(deckLi);
     }
+
+    handleDeckClick = () => {
+        console.log("I'm clicking on this Deck")
+        //this should call on the function displayFlashCard
+    }
+
 
     static getDecks = () => {
         fetch(endPoint)

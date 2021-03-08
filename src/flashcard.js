@@ -17,9 +17,13 @@ class Flashcard {
     static displayFlashcard = (deck, flashcard) => {
         const theDeck = Deck.search(deck)
         if (!flashcard) {
-            const theFlashcard = theDeck.flashcards[0]
-            currentFlashcard = 0;
-            Flashcard.appendFlashcard(theFlashcard)
+            if (theDeck.flashcards[0] === undefined) {
+                Flashcard.newFlashcard()
+            } else {
+                const theFlashcard = theDeck.flashcards[0]
+                currentFlashcard = 0;
+                Flashcard.appendFlashcard(theFlashcard)
+            }
         } else {
             const theFlashcard = theDeck.flashcards[flashcard]
             Flashcard.appendFlashcard(theFlashcard)

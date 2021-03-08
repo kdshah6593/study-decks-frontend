@@ -1,58 +1,27 @@
 const endPoint = "http://localhost:3000/api/v1/decks";
 const decksList = document.getElementById('decks-list')
-
+const flashcardContainer = document.getElementById('flashcard-container')
+const nextFlashcardBtn = document.getElementById('next-btn')
+const previousFlashcardBtn = document.getElementById('previous-btn')
+let currentDeck = null; // this will maintain state; which deck is currently being used
+let currentFlashcard = null; // this will maintain state; which flashcard user is on
 
 
 document.addEventListener('DOMContentLoaded', () => {
     Deck.getDecks()
 
     const newDeckBtn = document.getElementById('new-deck-btn')
-    newDeckBtn.addEventListener('click', handleNewDeckDisplay)
+    newDeckBtn.addEventListener('click', Deck.handleNewDeckDisplay)
 
     const newDeckForm = document.getElementById('new-deck-form')
-    newDeckForm.addEventListener('submit', (e) => handleNewDeckSubmit(e))
+    newDeckForm.addEventListener('submit', (e) => Deck.handleNewDeckSubmit(e))
+
+    // const nextFlashcardBtn = document.getElementById('next-btn')
+    nextFlashcardBtn.addEventListener('click', Flashcard.nextFlashcard)
+
+    // const previousFlashcardBtn = document.getElementById('previous-btn')
+    previousFlashcardBtn.addEventListener('click', Flashcard.previousFlashcard)
 })
-
-
-const handleNewDeckDisplay = () => {
-    const newDeckForm = document.getElementById('new-deck')
-    if (newDeckForm.style.display === 'none') {
-        newDeckForm.style.display = ''
-    } else {
-        newDeckForm.style.display = 'none'
-    }
-}
-
-const handleNewDeckSubmit = (e) => {
-    e.preventDefault()
-    const inputTitle = document.querySelector('#input-title').value
-    const inputUserId = parseInt("1") //need to remove the hard-coded user
-
-    postNewDeck(inputTitle, inputUserId)
-    // reset form
-    const deckForm = document.getElementById('new-deck-form')
-    deckForm.reset()
-    // hide form
-    handleNewDeckDisplay()
-}
-
-const postNewDeck = (title, user_id) => {
-    const inputData = {title, user_id}
-
-    fetch(endPoint, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(inputData)
-    })
-    .then(resp => resp.json())
-    .then(deck => {
-        const deckData = deck.data
-        Deck.renderDeck(deckData)
-    })
-}
 
 //fetch http://localhost:3000/api/v1/decks
 //fetch http://localhost:3000/api/v1/users/1

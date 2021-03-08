@@ -1,16 +1,24 @@
 Next Steps
-# Click on a Deck, Then First FlashCard Appends to the DOM
-1. Listen for a click on Deck LI element
-2. This will trigger a function on Deck to get associated flashcards
-    - use a find feature through the Deck.all to get the deck, then have flashcards attribute available
-3. This will call another function to display flashcard (always display first flashcard in array if no flashcard number is passed)
-4. Then next and previous buttons will show different flashcard depending on +1 or -1 of previous flashcard in array (use array index with for loop)
+# New Flashcard
+1. Click on New flashcard button
+2. appends a new flashcard form in the flashcard container
+3. sends ajax post request to backend
+4. response is returned and displays that flashcard on DOM
+
+# Edit Flashcard
+1. Click on edit flashcard button
+2. appends an edit flashcard form in the flashcard container; autofills in the current values
+3. Sends ajax patch request to backend
+4. reponse is returned and displays that flashcard on DOM
+
+# Delete Flashcard
+
+
+# Delete a Deck (will destroy all flashcards with it)
 
 
 
-Future Steps
-1. Create Previous and Next Buttons in One line (either button disappears at beginning or end of array of flashcards)
-2. Next Row of Buttons has Edit Flashcard, New Flashcard, Flip Flashcard
-3. Need to store CurrentDeck global variable when that deck is clicked on
-
+# Future Steps
+1. Bootstrap CSS
+2. User Login / Authentication
 4. Implement .catch() in fetch requests to handle errors.

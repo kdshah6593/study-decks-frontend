@@ -2,30 +2,31 @@ const flashcardEndPoint = "http://localhost:3000/api/v1/flashcards";
 
 class Flashcard {
 
-    static all = []
+    // static all = []
 
-    constructor(flashcard, flashcardAttributes) {
-        this.id = flashcard.id;
-        this.front = flashcardAttributes.front;
-        this.back = flashcardAttributes.back;
-        this.deckId = flashcardAttributes.deck_id;
+    // constructor(flashcard, flashcardAttributes) {
+    //     this.id = flashcard.id;
+    //     this.front = flashcardAttributes.front;
+    //     this.back = flashcardAttributes.back;
+    //     this.deckId = flashcardAttributes.deck_id;
 
-        Flashcard.all.push(this);
-    }
+    //     Flashcard.all.push(this);
+    // }
     
     //append the flashcard passed into it; if no flashcard passed in, then do first flashcard of deck
-    static displayFlashcard = (deck, flashcard) => {
-        const theDeck = Deck.search(deck)
+    static displayFlashcard = (flashcard) => {
+        const deckFlashcards = Flashcard.getFlashcards()
+        debugger
         if (!flashcard) {
-            if (theDeck.flashcards[0] === undefined) {
+            if (deckFlashcards === undefined) {
                 Flashcard.newFlashcard()
             } else {
-                const theFlashcard = theDeck.flashcards[0]
+                const theFlashcard = deckFlashcards[0]
                 currentFlashcard = 0;
                 Flashcard.appendFlashcard(theFlashcard)
             }
         } else {
-            const theFlashcard = theDeck.flashcards[flashcard]
+            const theFlashcard = deckFlashcards[flashcard]
             Flashcard.appendFlashcard(theFlashcard)
         }
     }
@@ -41,12 +42,17 @@ class Flashcard {
 
     static nextFlashcard = () => {
         currentFlashcard++;
-        Flashcard.displayFlashcard(currentDeck, currentFlashcard)
+        Flashcard.displayFlashcard(currentFlashcard)
     }
 
     static previousFlashcard = () => {
         currentFlashcard--;
-        Flashcard.displayFlashcard(currentDeck, currentFlashcard)
+        Flashcard.displayFlashcard(currentFlashcard)
+    }
+
+    static lastFlashcard = () => {
+        currentFlashcard = currentDeck.flashcards.length - 1;
+        Flashcard.displayFlashcard(currentFlashcard)
     }
 
     //check if current flashcard is first or last in array of flashcards; if so, disable buttons
@@ -126,17 +132,16 @@ class Flashcard {
         .then(resp => resp.json())
         .then(flashcard => {
             new Flashcard(flashcard.data, flashcard.data.attributes)
-            Flashcard.nextFlashcard()
+            Flashcard.lastFlashcard()
         })
     }
 
     static getFlashcards = () => {
-        const deckId = Deck.search(currentDeck).id
+        const deckId = parseInt(Deck.search(currentDeck).id)
         fetch(flashcardEndPoint)
         .then(response => response.json())
         .then(json => {
             let arr = json.data.filter(flashcard => flashcard.attributes.deck_id === deckId )
-            arr.forEach(card => new Flashcard(card, card.attributes))
             return arr;
         });
     }

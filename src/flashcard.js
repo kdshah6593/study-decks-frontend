@@ -17,6 +17,7 @@ class Flashcard {
         const flashcardP = document.createElement('p');
         flashcardP.innerText = obj.front;
         flashcardContainer.append(flashcardP);
+        Flashcard.statusCheck();
     }
 
     //need to handle if no next
@@ -28,5 +29,20 @@ class Flashcard {
     static previousFlashcard = () => {
         currentFlashcard--;
         Flashcard.displayFlashcard(currentDeck, currentFlashcard)
+    }
+
+    //check if current flashcard is first or last in array of flashcards; if so, disable buttons
+    static statusCheck = () => {
+        const theDeck = Deck.search(currentDeck)
+        if (currentFlashcard === 0) {
+            previousFlashcardBtn.disabled = true;
+            nextFlashcardBtn.disabled = false;
+        } else if (currentFlashcard === (theDeck.flashcards.length - 1)) {
+            nextFlashcardBtn.disabled = true;
+            previousFlashcardBtn.disabled = false;
+        } else {
+            previousFlashcardBtn.disabled = false;
+            nextFlashcardBtn.disabled = false;
+        }
     }
 }

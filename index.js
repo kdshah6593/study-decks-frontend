@@ -1,6 +1,8 @@
 const endPoint = "http://localhost:3000/api/v1/decks";
 const decksList = document.getElementById('decks-list')
-let currentDecks = null; // this will maintain state; which deck is currently being used
+const flashcardContainer = document.getElementById('flashcard-container')
+let currentDeck = null; // this will maintain state; which deck is currently being used
+let currentFlashcard = null; // this will maintain state; which flashcard user is on
 
 
 document.addEventListener('DOMContentLoaded', () => {

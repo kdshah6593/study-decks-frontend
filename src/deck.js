@@ -14,9 +14,22 @@ class Deck {
         Deck.all.push(this)
     }
 
-    //append the flashcard passed into it; if no flashcard passed in, then do first flashcard of deck
-    displayFlashcard = () => {
+    static search = (num) => {
+        return this.all[num]
+    }
 
+    //append the flashcard passed into it; if no flashcard passed in, then do first flashcard of deck
+    static displayFlashcard = (deck, flashcard) => {
+        if (!flashcard) {
+            const flashcard = Deck.search(parseInt(deck)).flashcards[0]
+            Deck.appendFlashcard(flashcard)
+        }
+    }
+
+    static appendFlashcard = (obj) => {
+        const flashcardP = document.createElement('p');
+        flashcardP.innerText = obj.front;
+        flashcardContainer.append(flashcardP);
     }
 
     //render and attach Syllabus to DOM
@@ -36,7 +49,10 @@ class Deck {
     handleDeckClick = (e) => {
         console.log("I'm clicking on this Deck")
         console.log(e.target)
+        currentDeck = e.target.dataset.id //string number
+
         //this should call on the function displayFlashCard
+        Deck.displayFlashcard(currentDeck)
     }
 
 

@@ -1,32 +1,19 @@
 const flashcardEndPoint = "http://localhost:3000/api/v1/flashcards";
+let currentDeckFlashcards = [];
 
 class Flashcard {
-
-    // static all = []
-
-    // constructor(flashcard, flashcardAttributes) {
-    //     this.id = flashcard.id;
-    //     this.front = flashcardAttributes.front;
-    //     this.back = flashcardAttributes.back;
-    //     this.deckId = flashcardAttributes.deck_id;
-
-    //     Flashcard.all.push(this);
-    // }
-    
     //append the flashcard passed into it; if no flashcard passed in, then do first flashcard of deck
     static displayFlashcard = (flashcard) => {
-        const deckFlashcards = Flashcard.getFlashcards()
-        debugger
         if (!flashcard) {
-            if (deckFlashcards === undefined) {
+            if (currentDeckFlashcards === []) {
                 Flashcard.newFlashcard()
             } else {
-                const theFlashcard = deckFlashcards[0]
+                const theFlashcard = currentDeckFlashcards[0]
                 currentFlashcard = 0;
                 Flashcard.appendFlashcard(theFlashcard)
             }
         } else {
-            const theFlashcard = deckFlashcards[flashcard]
+            const theFlashcard = currentDeckFlashcards[flashcard]
             Flashcard.appendFlashcard(theFlashcard)
         }
     }
@@ -137,12 +124,14 @@ class Flashcard {
     }
 
     static getFlashcards = () => {
+        currentDeckFlashcards = [];
         const deckId = parseInt(Deck.search(currentDeck).id)
         fetch(flashcardEndPoint)
         .then(response => response.json())
         .then(json => {
-            let arr = json.data.filter(flashcard => flashcard.attributes.deck_id === deckId )
-            return arr;
+            let arr = json.data.filter(flashcard => flashcard.attributes.deck_id === deckId)
+            debugger
+            currentDeckFlashcards = currentDeckFlashcards.concat(arr)
         });
     }
 

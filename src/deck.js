@@ -37,7 +37,7 @@ class Deck {
         console.log(e.target)
         currentDeck = parseInt(e.target.dataset.id) //string number to integer number
         currentFlashcard = null //always resets flashcards
-
+        Flashcard.getFlashcards()
         Flashcard.displayFlashcard()
     }
 

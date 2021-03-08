@@ -1,4 +1,13 @@
+const flashcardEndPoint = "http://localhost:3000/api/v1/flashcards";
+
 class Flashcard {
+
+    constructor(flashcard, flashcardAttributes) {
+        this.id = flashcard.id;
+        this.front = flashcardAttributes.front;
+        this.back = flashcardAttributes.back;
+        this.deckId = flashcardAttributes.deck_id;
+    }
     
     //append the flashcard passed into it; if no flashcard passed in, then do first flashcard of deck
     static displayFlashcard = (deck, flashcard) => {
@@ -79,8 +88,74 @@ class Flashcard {
             <br>
             <input id='create-flashcard-button' type='submit' name='flashcard-submit' value="Create New Flashcard">
         </form>`
+        const newForm = document.getElementById('new-flashcard-form')
+        newForm.addEventListener('submit', Flashcard.handleNewFlashcardSubmit)
+    }
+
+    static handleNewFlashcardSubmit = (e) => {
+        e.preventDefault()
+        console.log("I've submitted a new flashcard")
+
+        const inputFront = document.querySelector('#input-front').value
+        const inputBack = document.querySelector('#input-back').value
+        const inputDeckId = Deck.search(currentDeck).id
+
+        Flashcard.postNewFlashcard(inputFront, inputBack, inputDeckId)
+        //remove form and append Ajax data
+    }
+
+    static postNewFlashcard = (front, back, deck_id) => {
+        const inputData = {front, back, deck_id}
+
+        fetch(flashcardEndPoint, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(inputData)
+        })
+        .then(resp => resp.json())
+        .then(flashcard => {
+            console.log(flashcard)
+        })
+    }
+
+    static getFlashcards = () => {
+        const deckId = Deck.search(currentDeck).id
+        fetch(flashcardEndPoint)
+        .then(response => response.json())
+        .then(json => {
+            let arr = json.data.filter(flashcard => flashcard.attributes.deck_id === deckId )
+            arr.forEach(card => new Flashcard(card, card.attributes))
+
+            //needs a return
+        });
     }
 
 }
 
+// this.postNewDeck(inputTitle, inputUserId)
+// // reset form
+// const deckForm = document.getElementById('new-deck-form')
+// deckForm.reset()
+// // hide form
+// this.handleNewDeckDisplay()
 
+static postNewDeck = (title, user_id) => {
+    const inputData = {title, user_id}
+
+    fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify(inputData)
+    })
+    .then(resp => resp.json())
+    .then(deck => {
+        const newDeck = new Deck(deck.data, deck.data.attributes)
+        newDeck.renderDeck()
+    })
+}

@@ -22,3 +22,7 @@ Next Steps
 1. Bootstrap CSS
 2. User Login / Authentication
 4. Implement .catch() in fetch requests to handle errors.
+
+
+
+when you make new deck, it should set current deck to equal it's dataset id

@@ -1,4 +1,5 @@
-// add a form for create new deck based on new deck button
+let deckCount = 0;
+
 class Deck {
     static all = []
     
@@ -21,9 +22,10 @@ class Deck {
     //render and attach Syllabus to DOM
     renderDeck = () => {
         const deckLi = document.createElement('li');
-        deckLi.dataset.id = this.id
+        deckLi.dataset.id = deckCount
         deckLi.id = this.title
         deckLi.innerText = `${this.title}`
+        deckCount++;
 
         //add eventListener for click on LI
         deckLi.addEventListener('click', this.handleDeckClick)
@@ -31,8 +33,9 @@ class Deck {
         decksList.append(deckLi);
     }
 
-    handleDeckClick = () => {
+    handleDeckClick = (e) => {
         console.log("I'm clicking on this Deck")
+        console.log(e.target)
         //this should call on the function displayFlashCard
     }
 

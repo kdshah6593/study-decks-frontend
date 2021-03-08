@@ -22,12 +22,11 @@ class Flashcard {
         Flashcard.statusCheck();
     }
 
-    //need to handle if no next
     static nextFlashcard = () => {
         currentFlashcard++;
         Flashcard.displayFlashcard(currentDeck, currentFlashcard)
     }
-    //need to handle if no previous
+
     static previousFlashcard = () => {
         currentFlashcard--;
         Flashcard.displayFlashcard(currentDeck, currentFlashcard)
@@ -66,6 +65,6 @@ class Flashcard {
             flashcardP.innerText = fc.back;
             flashcardContainer.append(flashcardP)
         }
-
     }
+    
 }

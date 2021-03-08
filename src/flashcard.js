@@ -66,5 +66,21 @@ class Flashcard {
             flashcardContainer.append(flashcardP)
         }
     }
-    
+
+    //new flashcard
+    static newFlashcard = () => {
+        flashcardContainer.innerHTML = `
+        <form id='new-flashcard-form'>
+            <label for="front">Front: </label>
+            <input id='input-front' type='text' name='front' value="" placeholder="Front of Flashcard">
+            <br>
+            <label for="back">Back: </label>
+            <input id='input-back' type='text' name='back' value="" placeholder="Back of Flashcard">
+            <br>
+            <input id='create-flashcard-button' type='submit' name='flashcard-submit' value="Create New Flashcard">
+        </form>`
+    }
+
 }
+
+

@@ -14,6 +14,7 @@ class Flashcard {
     }
 
     static appendFlashcard = (obj) => {
+        flashcardContainer.innerHTML = "";
         const flashcardP = document.createElement('p');
         flashcardP.innerText = obj.front;
         flashcardContainer.append(flashcardP);

@@ -37,7 +37,6 @@ class Deck {
         console.log(e.target)
         currentDeck = parseInt(e.target.dataset.id) //string number to integer number
 
-        //this should call on the function displayFlashCard
         Flashcard.displayFlashcard(currentDeck)
     }
 

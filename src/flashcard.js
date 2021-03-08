@@ -16,6 +16,7 @@ class Flashcard {
     static appendFlashcard = (obj) => {
         flashcardContainer.innerHTML = "";
         const flashcardP = document.createElement('p');
+        flashcardP.id = "front"
         flashcardP.innerText = obj.front;
         flashcardContainer.append(flashcardP);
         Flashcard.statusCheck();
@@ -45,5 +46,26 @@ class Flashcard {
             previousFlashcardBtn.disabled = false;
             nextFlashcardBtn.disabled = false;
         }
+    }
+
+    //flip Flashcard
+    static flipFlashcard = () => {
+        const fcId = document.getElementById("front")
+        const fc = Deck.search(currentDeck).flashcards[currentFlashcard]
+
+        if (fcId === null) {
+            flashcardContainer.innerHTML = "";
+            const flashcardP = document.createElement('p');
+            flashcardP.id = "front";
+            flashcardP.innerText = fc.front;
+            flashcardContainer.append(flashcardP)
+        } else {
+            flashcardContainer.innerHTML = "";
+            const flashcardP = document.createElement('p');
+            flashcardP.id = "back";
+            flashcardP.innerText = fc.back;
+            flashcardContainer.append(flashcardP)
+        }
+
     }
 }

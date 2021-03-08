@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const nextFlashcardBtn = document.getElementById('next-btn')
     nextFlashcardBtn.addEventListener('click', Flashcard.nextFlashcard)
+
+    const previousFlashcardBtn = document.getElementById('previous-btn')
+    previousFlashcardBtn.addEventListener('click', Flashcard.previousFlashcard)
 })
 
 //fetch http://localhost:3000/api/v1/decks

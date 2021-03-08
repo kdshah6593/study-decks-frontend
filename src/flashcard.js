@@ -19,10 +19,14 @@ class Flashcard {
         flashcardContainer.append(flashcardP);
     }
 
-
+    //need to handle if no next
     static nextFlashcard = () => {
         currentFlashcard++;
         Flashcard.displayFlashcard(currentDeck, currentFlashcard)
     }
-
+    //need to handle if no previous
+    static previousFlashcard = () => {
+        currentFlashcard--;
+        Flashcard.displayFlashcard(currentDeck, currentFlashcard)
+    }
 }

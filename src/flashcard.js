@@ -2,11 +2,15 @@ const flashcardEndPoint = "http://localhost:3000/api/v1/flashcards";
 
 class Flashcard {
 
+    static all = []
+
     constructor(flashcard, flashcardAttributes) {
         this.id = flashcard.id;
         this.front = flashcardAttributes.front;
         this.back = flashcardAttributes.back;
         this.deckId = flashcardAttributes.deck_id;
+
+        Flashcard.all.push(this);
     }
     
     //append the flashcard passed into it; if no flashcard passed in, then do first flashcard of deck
@@ -117,7 +121,8 @@ class Flashcard {
         })
         .then(resp => resp.json())
         .then(flashcard => {
-            console.log(flashcard)
+            new Flashcard(flashcard.data, flashcard.data.attributes)
+            Flashcard.nextFlashcard()
         })
     }
 
@@ -128,34 +133,8 @@ class Flashcard {
         .then(json => {
             let arr = json.data.filter(flashcard => flashcard.attributes.deck_id === deckId )
             arr.forEach(card => new Flashcard(card, card.attributes))
-
-            //needs a return
+            return arr;
         });
     }
 
-}
-
-// this.postNewDeck(inputTitle, inputUserId)
-// // reset form
-// const deckForm = document.getElementById('new-deck-form')
-// deckForm.reset()
-// // hide form
-// this.handleNewDeckDisplay()
-
-static postNewDeck = (title, user_id) => {
-    const inputData = {title, user_id}
-
-    fetch(endPoint, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(inputData)
-    })
-    .then(resp => resp.json())
-    .then(deck => {
-        const newDeck = new Deck(deck.data, deck.data.attributes)
-        newDeck.renderDeck()
-    })
 }

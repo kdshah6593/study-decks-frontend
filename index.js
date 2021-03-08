@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const newDeckForm = document.getElementById('new-deck-form')
     newDeckForm.addEventListener('submit', (e) => Deck.handleNewDeckSubmit(e))
+
+    const nextFlashcardBtn = document.getElementById('next-btn')
+    nextFlashcardBtn.addEventListener('click', Flashcard.nextFlashcard)
 })
 
 //fetch http://localhost:3000/api/v1/decks

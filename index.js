@@ -1,5 +1,6 @@
 const endPoint = "http://localhost:3000/api/v1/decks";
 const decksList = document.getElementById('decks-list')
+let currentDecks = null; // this will maintain state; which deck is currently being used
 
 
 document.addEventListener('DOMContentLoaded', () => {

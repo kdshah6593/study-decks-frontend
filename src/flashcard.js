@@ -130,8 +130,9 @@ class Flashcard {
         .then(response => response.json())
         .then(json => {
             let arr = json.data.filter(flashcard => flashcard.attributes.deck_id === deckId)
+            arr.forEach(card => currentDeckFlashcards.push(card))
             debugger
-            currentDeckFlashcards = currentDeckFlashcards.concat(arr)
+            return currentDeckFlashcards
         });
     }
 

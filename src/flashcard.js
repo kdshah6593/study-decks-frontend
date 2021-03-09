@@ -39,17 +39,17 @@ class Flashcard {
     }
 
     static lastFlashcard = () => {
-        currentFlashcard = currentDeck.flashcards.length - 1;
+        currentFlashcard = currentDeckFlashcards.length - 1;
         Flashcard.displayFlashcard(currentFlashcard)
     }
 
     //check if current flashcard is first or last in array of flashcards; if so, disable buttons
     static statusCheck = () => {
-        const theDeck = Deck.search(currentDeck)
+        const theDeck = currentDeckFlashcards
         if (currentFlashcard === 0) {
             previousFlashcardBtn.disabled = true;
             nextFlashcardBtn.disabled = false;
-        } else if (currentFlashcard === (theDeck.flashcards.length - 1)) {
+        } else if (currentFlashcard === (theDeck.length - 1)) {
             nextFlashcardBtn.disabled = true;
             previousFlashcardBtn.disabled = false;
         } else {
@@ -122,6 +122,7 @@ class Flashcard {
         })
         .then(resp => resp.json())
         .then(flashcard => {
+            currentDeckFlashcards.push(flashcard.data);
             Flashcard.lastFlashcard()
         })
     }

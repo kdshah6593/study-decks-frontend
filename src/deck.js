@@ -29,25 +29,27 @@ class Deck {
 
         deckP.innerText = `${this.title}`
         deckP.style.display = 'inline'
-        deckLi.append(deckP);
 
         deckDelBtn.classList.add('delete-deck-btn', 'btn', 'btn-sm', 'btn-danger')
         deckDelBtn.style.display = 'inline'
         deckDelBtn.innerText = 'Delete'
-        deckLi.append(deckDelBtn)
-
+        
         deckCount++;
 
-        //add eventListener for click on LI
-        deckLi.addEventListener('click', this.handleDeckClick)
+        //add eventListeners for click on LI
+        deckP.addEventListener('click', this.handleDeckClick)
+        deckDelBtn.addEventListener('click', this.deleteDeck)
 
+        deckLi.append(deckP);
+        deckLi.append(deckDelBtn)
         decksList.append(deckLi);
     }
 
     handleDeckClick = (e) => {
         console.log("I'm clicking on this Deck")
         console.log(e.target)
-        currentDeck = parseInt(e.target.dataset.id) //string number to integer number
+        let parent = e.target.parentElement
+        currentDeck = parseInt(parent.dataset.id) //string number to integer number
         currentFlashcard = null //resets flashcards
         Flashcard.getFlashcards()
     }
@@ -64,8 +66,8 @@ class Deck {
     }
 
     // delete fetch request
-    static deleteDeck = () => {
-
+    deleteDeck = () => {
+        console.log("im inside the delete request")
     }
 
 

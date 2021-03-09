@@ -3,8 +3,8 @@ let currentDeckFlashcards = [];
 
 class Flashcard {
     //append the flashcard passed into it; if no flashcard passed in, then do first flashcard of deck
-    static displayFlashcard = (flashcard) => {
-        if (flashcard === undefined) {
+    static displayFlashcard = (fcNum) => {
+        if (fcNum === undefined) {
             if (currentDeckFlashcards.length === 0) {
                 Flashcard.newFlashcard()
             } else {
@@ -13,7 +13,7 @@ class Flashcard {
                 Flashcard.appendFlashcard(theFlashcard)
             }
         } else {
-            const theFlashcard = currentDeckFlashcards[flashcard]
+            const theFlashcard = currentDeckFlashcards[fcNum]
             Flashcard.appendFlashcard(theFlashcard)
         }
     }
@@ -61,21 +61,22 @@ class Flashcard {
     //flip Flashcard
     static flipFlashcard = () => {
         const fcId = document.getElementById("front")
-        const fc = Deck.search(currentDeck).flashcards[currentFlashcard]
+        const fcDataId = document.querySelector('#flashcard-container p').dataset.id
+        const fc = currentDeckFlashcards.find(e => e.id === fcDataId)
 
         if (fcId === null) {
             flashcardContainer.innerHTML = "";
             const flashcardP = document.createElement('p');
             flashcardP.id = "front";
             flashcardP.dataset.id = fc.id;
-            flashcardP.innerText = fc.front;
+            flashcardP.innerText = fc.attributes.front;
             flashcardContainer.append(flashcardP)
         } else {
             flashcardContainer.innerHTML = "";
             const flashcardP = document.createElement('p');
             flashcardP.id = "back";
             flashcardP.dataset.id = fc.id;
-            flashcardP.innerText = fc.back;
+            flashcardP.innerText = fc.attributes.back;
             flashcardContainer.append(flashcardP)
         }
     }
@@ -174,8 +175,6 @@ class Flashcard {
         const inputId = document.querySelector('#input-id').value
         const inputDeckId = parseInt(document.querySelector('#input-deck-id').value)
 
-        console.log(inputId, inputFront, inputBack, inputDeckId)
-
         Flashcard.updateFlashcard(inputId, inputFront, inputBack, inputDeckId)
     }
 
@@ -190,8 +189,9 @@ class Flashcard {
             body: JSON.stringify(updateData)
         })
         .then(resp => resp.json())
-        .then(flashcard => {
-            console.log(flashcard);
+        .then(updatedFC => {
+            Flashcard.appendFlashcard(updatedFC.data)
+            Flashcard.getFlashcards()
         })
     }
 

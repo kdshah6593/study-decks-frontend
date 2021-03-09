@@ -21,9 +21,21 @@ class Deck {
     //render and attach Syllabus to DOM
     renderDeck = () => {
         const deckLi = document.createElement('li');
+        const deckP = document.createElement('p');
+        const deckDelBtn = document.createElement('button');
+
         deckLi.dataset.id = deckCount
         deckLi.id = this.title
-        deckLi.innerText = `${this.title}`
+
+        deckP.innerText = `${this.title}`
+        deckP.style.display = 'inline'
+        deckLi.append(deckP);
+
+        deckDelBtn.classList.add('delete-deck-btn', 'btn', 'btn-sm', 'btn-danger')
+        deckDelBtn.style.display = 'inline'
+        deckDelBtn.innerText = 'Delete'
+        deckLi.append(deckDelBtn)
+        // deckLi.innerText = `${this.title}`
         deckCount++;
 
         //add eventListener for click on LI

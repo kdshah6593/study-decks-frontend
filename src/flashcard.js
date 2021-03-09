@@ -21,7 +21,8 @@ class Flashcard {
     static appendFlashcard = (obj) => {
         flashcardContainer.innerHTML = "";
         const flashcardP = document.createElement('p');
-        flashcardP.id = "front"
+        flashcardP.id = "front";
+        flashcardP.dataset.id = obj.id;
         flashcardP.innerText = obj.attributes.front;
         flashcardContainer.append(flashcardP);
         Flashcard.statusCheck();
@@ -66,12 +67,14 @@ class Flashcard {
             flashcardContainer.innerHTML = "";
             const flashcardP = document.createElement('p');
             flashcardP.id = "front";
+            flashcardP.dataset.id = fc.id;
             flashcardP.innerText = fc.front;
             flashcardContainer.append(flashcardP)
         } else {
             flashcardContainer.innerHTML = "";
             const flashcardP = document.createElement('p');
             flashcardP.id = "back";
+            flashcardP.dataset.id = fc.id;
             flashcardP.innerText = fc.back;
             flashcardContainer.append(flashcardP)
         }
@@ -135,21 +138,60 @@ class Flashcard {
     }
 
     static editFlashcard = () => {
-        console.log("I'm inside the edit button")
+        //fetch that flashcard because no constructor that stores them
+        const fcId = document.querySelector('#flashcard-container p').dataset.id
+        fetch(flashcardEndPoint + `/${fcId}`)
+        .then(response => response.json())
+        .then(json => {
+            console.log(json)
+            const fc = json.data
+            Flashcard.renderEditForm(fc)
+        });
+    }
 
+    static renderEditForm(card) {
         flashcardContainer.innerHTML = `
         <form id='edit-flashcard-form'>
+            <input type='hidden' id='input-id' name='id' value='${card.id}'>
+            <input type='hidden' id='input-deck-id' name='deck-id' value='${card.deck_id}'>
             <label for="front">Front: </label>
-            <input id='input-front' type='text' name='front' value="" placeholder="Front of Flashcard">
+            <input id='input-front' type='text' name='front' value="${card.attributes.front}" placeholder="Front of Flashcard">
             <br>
             <label for="back">Back: </label>
-            <input id='input-back' type='text' name='back' value="" placeholder="Back of Flashcard">
+            <input id='input-back' type='text' name='back' value="${card.attributes.back}" placeholder="Back of Flashcard">
             <br>
             <input id='create-flashcard-button' type='submit' name='flashcard-submit' value="Create New Flashcard">
         </form>`
         const editForm = document.getElementById('edit-flashcard-form')
-        editForm.addEventListener('submit', Flashcard.handleNewFlashcardSubmit)
+        editForm.addEventListener('submit', Flashcard.handleEditFlashcardSubmit)
+    }
 
+    static handleEditFlashcardSubmit = (e) => {
+        e.preventDefault()
+
+        const inputFront = document.querySelector('#input-front').value
+        const inputBack = document.querySelector('#input-back').value
+        const inputId = document.querySelector('#input-id').value
+        const inputDeckId = document.querySelector('#input-deck-id')
+
+        Flashcard.updateFlashcard(inputId, inputFront, inputBack, inputDeckId)
+    }
+
+    static updateFlashcard = (id, front, back, deck_id) => {
+        updateData = {front, back, deck_id}
+
+        fetch(flashcardEndPoint + `/${id}`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(updateData)
+        })
+        .then(resp => resp.json())
+        .then(flashcard => {
+            console.log(flashcard);
+        })
     }
 
 }

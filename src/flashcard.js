@@ -204,22 +204,28 @@ class Flashcard {
 
     // delete functions
     static deleteFlashcard = () => {
-        const fcId = document.querySelector('#flashcard-container p').dataset.id // "6"
-        const fc = currentDeckFlashcards.find(e => e.id === fcId) // flashcard object
+        const r = confirm("Are you sure you want to Delete?")
+        if (r !== true) {
+            Flashcard.displayFlashcard(currentFlashcard)
+        } else {
+            const fcId = document.querySelector('#flashcard-container p').dataset.id // "6"
+            const fc = currentDeckFlashcards.find(e => e.id === fcId) // flashcard object
+    
+            fetch(flashcardEndPoint + `/${fc.id}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
+            })
+            .then(resp => resp.json())
+            .then(data => {
+                console.log(data)
+                currentFlashcard = null;
+                Flashcard.getFlashcards();
+            })
 
-        fetch(flashcardEndPoint + `/${fc.id}`, {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        })
-        .then(resp => resp.json())
-        .then(data => {
-            console.log(data)
-            currentFlashcard = null;
-            Flashcard.getFlashcards();
-        })
+        }
     }
 
 }

@@ -67,30 +67,41 @@ class Deck {
 
     // delete fetch request
     deleteDeck = (e) => {
-        console.log("im inside the delete request")
-        const deckId = parseInt(e.target.parentElement.dataset.id) //index in Deck.all
-        const deck = Deck.search(deckId) // actual deck
-
-        fetch(endPoint + `/${deck.id}`, {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }
-        })
-        .then(resp => resp.json())
-        .then(decks => {
-            console.log(decks);
+        const r = confirm("Are you sure? This will also delete also associated flashcards.")
+        if (r !== true) {
+            decksList.innerHTML = "";
             currentDeck = null;
             currentFlashcard = null;
             deckCount = 0;
-            Deck.all.splice(deckId, 1)
-            decksList.innerHTML = "";
-
             Deck.all.forEach(deck => {
                 deck.renderDeck();
             })
-        })
+        } else {
+            const deckId = parseInt(e.target.parentElement.dataset.id) //index in Deck.all
+            const deck = Deck.search(deckId) // actual deck
+    
+            fetch(endPoint + `/${deck.id}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
+            })
+            .then(resp => resp.json())
+            .then(decks => {
+                console.log(decks);
+                currentDeck = null;
+                currentFlashcard = null;
+                deckCount = 0;
+                Deck.all.splice(deckId, 1)
+                decksList.innerHTML = "";
+    
+                Deck.all.forEach(deck => {
+                    deck.renderDeck();
+                })
+            })
+
+        }
     }
 
 

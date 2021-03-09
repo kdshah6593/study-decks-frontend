@@ -5,7 +5,7 @@ const nextFlashcardBtn = document.getElementById('next-btn')
 const previousFlashcardBtn = document.getElementById('previous-btn')
 const flipFlashcardBtn = document.getElementById('flip-btn')
 const newFlashcardBtn = document.getElementById('new-flashcard-btn')
-let currentDeck = null; // this will maintain state; which deck is currently being used
+let currentDeck = null; // this will maintain state; which deck is currently being used; based on dataset id
 let currentFlashcard = null; // this will maintain state; which flashcard user is on
 
 

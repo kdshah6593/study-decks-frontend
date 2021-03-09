@@ -4,8 +4,8 @@ let currentDeckFlashcards = [];
 class Flashcard {
     //append the flashcard passed into it; if no flashcard passed in, then do first flashcard of deck
     static displayFlashcard = (flashcard) => {
-        if (!flashcard) {
-            if (currentDeckFlashcards === []) {
+        if (flashcard === undefined) {
+            if (currentDeckFlashcards.length === 0) {
                 Flashcard.newFlashcard()
             } else {
                 const theFlashcard = currentDeckFlashcards[0]
@@ -118,7 +118,6 @@ class Flashcard {
         })
         .then(resp => resp.json())
         .then(flashcard => {
-            new Flashcard(flashcard.data, flashcard.data.attributes)
             Flashcard.lastFlashcard()
         })
     }

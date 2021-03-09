@@ -102,7 +102,7 @@ class Deck {
             currentDeck = parseInt(newDeck.id) - 1 //same as dataset-id of the li its in
             currentFlashcard = null
             currentDeckFlashcards = [];
-            Flashcard.displayFlashcard()
+            Flashcard.displayFlashcard(currentFlashcard)
         })
     }
 

@@ -4,7 +4,7 @@ let currentDeckFlashcards = [];
 class Flashcard {
     //append the flashcard passed into it; if no flashcard passed in, then do first flashcard of deck
     static displayFlashcard = (fcNum) => {
-        if (fcNum === undefined) {
+        if (fcNum === null) {
             if (currentDeckFlashcards.length === 0) {
                 Flashcard.newFlashcard()
             } else {
@@ -135,7 +135,7 @@ class Flashcard {
         .then(json => {
             let arr = json.data.filter(flashcard => flashcard.attributes.deck_id === deckId)
             arr.forEach(card => currentDeckFlashcards.push(card))
-            Flashcard.displayFlashcard();
+            Flashcard.displayFlashcard(currentFlashcard);
         });
     }
 

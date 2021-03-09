@@ -172,14 +172,15 @@ class Flashcard {
         const inputFront = document.querySelector('#input-front').value
         const inputBack = document.querySelector('#input-back').value
         const inputId = document.querySelector('#input-id').value
-        const inputDeckId = document.querySelector('#input-deck-id')
+        const inputDeckId = parseInt(document.querySelector('#input-deck-id').value)
+
+        console.log(inputId, inputFront, inputBack, inputDeckId)
 
         Flashcard.updateFlashcard(inputId, inputFront, inputBack, inputDeckId)
     }
 
     static updateFlashcard = (id, front, back, deck_id) => {
         const updateData = {front, back, deck_id}
-
         fetch(flashcardEndPoint + `/${id}`, {
             method: 'PATCH',
             headers: {

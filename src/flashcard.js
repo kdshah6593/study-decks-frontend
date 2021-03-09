@@ -6,7 +6,8 @@ class Flashcard {
     static displayFlashcard = (fcNum) => {
         if (fcNum === null) {
             if (currentDeckFlashcards.length === 0) {
-                Flashcard.newFlashcard()
+                Flashcard.statusCheck();
+                Flashcard.newFlashcard();
             } else {
                 const theFlashcard = currentDeckFlashcards[0]
                 currentFlashcard = 0;
@@ -56,6 +57,9 @@ class Flashcard {
         } else if (currentFlashcard === (theDeck.length - 1)) {
             nextFlashcardBtn.disabled = true;
             previousFlashcardBtn.disabled = false;
+        } else if (currentFlashcard === null) {
+            previousFlashcardBtn.disabled = true;
+            nextFlashcardBtn.disabled = true;
         } else {
             previousFlashcardBtn.disabled = false;
             nextFlashcardBtn.disabled = false;

@@ -139,6 +139,8 @@ class Flashcard {
         });
     }
 
+    // edit methods
+
     static editFlashcard = () => {
         //fetch that flashcard because no constructor that stores them
         const fcId = document.querySelector('#flashcard-container p').dataset.id
@@ -193,6 +195,27 @@ class Flashcard {
         .then(updatedFC => {
             Flashcard.appendFlashcard(updatedFC.data)
             Flashcard.getFlashcards()
+        })
+    }
+
+    // delete functions
+
+    static deleteFlashcard = () => {
+        const fcId = document.querySelector('#flashcard-container p').dataset.id // "6"
+        const fc = currentDeckFlashcards.find(e => e.id === fcId) // flashcard object
+
+        fetch(flashcardEndPoint + `/${fc.id}`, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            console.log(data)
+            currentFlashcard = null;
+            Flashcard.getFlashcards();
         })
     }
 

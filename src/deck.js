@@ -21,22 +21,36 @@ class Deck {
     //render and attach Syllabus to DOM
     renderDeck = () => {
         const deckLi = document.createElement('li');
+        const deckP = document.createElement('p');
+        const deckDelBtn = document.createElement('button');
+
         deckLi.dataset.id = deckCount
         deckLi.id = this.title
-        deckLi.innerText = `${this.title}`
+
+        deckP.innerText = `${this.title}`
+        deckP.style.display = 'inline'
+
+        deckDelBtn.classList.add('delete-deck-btn', 'btn', 'btn-sm', 'btn-danger')
+        deckDelBtn.style.display = 'inline'
+        deckDelBtn.innerText = 'Delete'
+        
         deckCount++;
 
-        //add eventListener for click on LI
-        deckLi.addEventListener('click', this.handleDeckClick)
+        //add eventListeners for click on LI
+        deckP.addEventListener('click', this.handleDeckClick)
+        deckDelBtn.addEventListener('click', this.deleteDeck)
 
+        deckLi.append(deckP);
+        deckLi.append(deckDelBtn)
         decksList.append(deckLi);
     }
 
     handleDeckClick = (e) => {
         console.log("I'm clicking on this Deck")
         console.log(e.target)
-        currentDeck = parseInt(e.target.dataset.id) //string number to integer number
-        currentFlashcard = null //always resets flashcards
+        let parent = e.target.parentElement
+        currentDeck = parseInt(parent.dataset.id) //string number to integer number
+        currentFlashcard = null //resets flashcards
         Flashcard.getFlashcards()
     }
 
@@ -51,14 +65,43 @@ class Deck {
         );
     }
 
-    //change this to handleNewDeckSubmit / postNewDeck methods
-    static createDeck = () => {
-
-    }
-
     // delete fetch request
-    static deleteDeck = () => {
+    deleteDeck = (e) => {
+        const r = confirm("Are you sure? This will also delete also associated flashcards.")
+        if (r !== true) {
+            decksList.innerHTML = "";
+            currentDeck = null;
+            currentFlashcard = null;
+            deckCount = 0;
+            Deck.all.forEach(deck => {
+                deck.renderDeck();
+            })
+        } else {
+            const deckId = parseInt(e.target.parentElement.dataset.id) //index in Deck.all
+            const deck = Deck.search(deckId) // actual deck
+    
+            fetch(endPoint + `/${deck.id}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
+            })
+            .then(resp => resp.json())
+            .then(decks => {
+                console.log(decks);
+                currentDeck = null;
+                currentFlashcard = null;
+                deckCount = 0;
+                Deck.all.splice(deckId, 1)
+                decksList.innerHTML = "";
+    
+                Deck.all.forEach(deck => {
+                    deck.renderDeck();
+                })
+            })
 
+        }
     }
 
 

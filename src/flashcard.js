@@ -2,11 +2,11 @@ const flashcardEndPoint = "http://localhost:3000/api/v1/flashcards";
 let currentDeckFlashcards = [];
 
 class Flashcard {
-    //append the flashcard passed into it; if no flashcard passed in, then do first flashcard of deck
     static displayFlashcard = (fcNum) => {
         if (fcNum === null) {
             if (currentDeckFlashcards.length === 0) {
-                Flashcard.newFlashcard()
+                Flashcard.statusCheck();
+                Flashcard.newFlashcard();
             } else {
                 const theFlashcard = currentDeckFlashcards[0]
                 currentFlashcard = 0;
@@ -48,10 +48,17 @@ class Flashcard {
         const theDeck = currentDeckFlashcards
         if (currentFlashcard === 0) {
             previousFlashcardBtn.disabled = true;
-            nextFlashcardBtn.disabled = false;
+            if (currentDeckFlashcards[1]) {
+                nextFlashcardBtn.disabled = false;
+            } else {
+                nextFlashcardBtn.disabled = true;
+            }
         } else if (currentFlashcard === (theDeck.length - 1)) {
             nextFlashcardBtn.disabled = true;
             previousFlashcardBtn.disabled = false;
+        } else if (currentFlashcard === null) {
+            previousFlashcardBtn.disabled = true;
+            nextFlashcardBtn.disabled = true;
         } else {
             previousFlashcardBtn.disabled = false;
             nextFlashcardBtn.disabled = false;
@@ -106,7 +113,6 @@ class Flashcard {
         const inputDeckId = Deck.search(currentDeck).id
 
         Flashcard.postNewFlashcard(inputFront, inputBack, inputDeckId)
-        //remove form and append Ajax data
     }
 
     static postNewFlashcard = (front, back, deck_id) => {
@@ -139,8 +145,8 @@ class Flashcard {
         });
     }
 
+    // edit methods
     static editFlashcard = () => {
-        //fetch that flashcard because no constructor that stores them
         const fcId = document.querySelector('#flashcard-container p').dataset.id
         fetch(flashcardEndPoint + `/${fcId}`)
         .then(response => response.json())
@@ -194,6 +200,32 @@ class Flashcard {
             Flashcard.appendFlashcard(updatedFC.data)
             Flashcard.getFlashcards()
         })
+    }
+
+    // delete functions
+    static deleteFlashcard = () => {
+        const r = confirm("Are you sure you want to Delete?")
+        if (r !== true) {
+            Flashcard.displayFlashcard(currentFlashcard)
+        } else {
+            const fcId = document.querySelector('#flashcard-container p').dataset.id // "6"
+            const fc = currentDeckFlashcards.find(e => e.id === fcId) // flashcard object
+    
+            fetch(flashcardEndPoint + `/${fc.id}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                }
+            })
+            .then(resp => resp.json())
+            .then(data => {
+                console.log(data)
+                currentFlashcard = null;
+                Flashcard.getFlashcards();
+            })
+
+        }
     }
 
 }

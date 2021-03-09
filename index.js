@@ -6,6 +6,7 @@ const previousFlashcardBtn = document.getElementById('previous-btn')
 const flipFlashcardBtn = document.getElementById('flip-btn')
 const newFlashcardBtn = document.getElementById('new-flashcard-btn')
 const editFlashcardBtn = document.getElementById('edit-flashcard-btn')
+const deleteFlashcardBtn = document.getElementById('delete-flashcard-btn')
 let currentDeck = null; // this will maintain state; which deck is currently being used; based on dataset id
 let currentFlashcard = null; // this will maintain state; which flashcard user is on
 
@@ -29,10 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     editFlashcardBtn.addEventListener('click', Flashcard.editFlashcard)
 
-})
+    deleteFlashcardBtn.addEventListener('click', Flashcard.deleteFlashcard)
 
-//fetch http://localhost:3000/api/v1/decks
-//fetch http://localhost:3000/api/v1/users/1
+})
 
 // Site Should Load With No Decks Showing, FlashCard space empty, and where the decks would go a login for user
 //After User login, then site should make a fetch request and add all the decks of the user

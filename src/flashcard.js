@@ -48,7 +48,11 @@ class Flashcard {
         const theDeck = currentDeckFlashcards
         if (currentFlashcard === 0) {
             previousFlashcardBtn.disabled = true;
-            nextFlashcardBtn.disabled = false;
+            if (currentDeckFlashcards[1]) {
+                nextFlashcardBtn.disabled = false;
+            } else {
+                nextFlashcardBtn.disabled = true;
+            }
         } else if (currentFlashcard === (theDeck.length - 1)) {
             nextFlashcardBtn.disabled = true;
             previousFlashcardBtn.disabled = false;

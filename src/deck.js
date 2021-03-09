@@ -36,8 +36,8 @@ class Deck {
         console.log("I'm clicking on this Deck")
         console.log(e.target)
         currentDeck = parseInt(e.target.dataset.id) //string number to integer number
-
-        Flashcard.displayFlashcard(currentDeck)
+        currentFlashcard = null //always resets flashcards
+        Flashcard.getFlashcards()
     }
 
 
@@ -99,6 +99,10 @@ class Deck {
         .then(deck => {
             const newDeck = new Deck(deck.data, deck.data.attributes)
             newDeck.renderDeck()
+            currentDeck = parseInt(newDeck.id) - 1 //same as dataset-id of the li its in
+            currentFlashcard = null
+            currentDeckFlashcards = [];
+            Flashcard.displayFlashcard()
         })
     }
 

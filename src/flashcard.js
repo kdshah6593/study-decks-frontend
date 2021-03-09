@@ -4,7 +4,7 @@ let currentDeckFlashcards = [];
 class Flashcard {
     //append the flashcard passed into it; if no flashcard passed in, then do first flashcard of deck
     static displayFlashcard = (fcNum) => {
-        if (fcNum === undefined) {
+        if (fcNum === null) {
             if (currentDeckFlashcards.length === 0) {
                 Flashcard.newFlashcard()
             } else {
@@ -39,17 +39,17 @@ class Flashcard {
     }
 
     static lastFlashcard = () => {
-        currentFlashcard = currentDeck.flashcards.length - 1;
+        currentFlashcard = currentDeckFlashcards.length - 1;
         Flashcard.displayFlashcard(currentFlashcard)
     }
 
     //check if current flashcard is first or last in array of flashcards; if so, disable buttons
     static statusCheck = () => {
-        const theDeck = Deck.search(currentDeck)
+        const theDeck = currentDeckFlashcards
         if (currentFlashcard === 0) {
             previousFlashcardBtn.disabled = true;
             nextFlashcardBtn.disabled = false;
-        } else if (currentFlashcard === (theDeck.flashcards.length - 1)) {
+        } else if (currentFlashcard === (theDeck.length - 1)) {
             nextFlashcardBtn.disabled = true;
             previousFlashcardBtn.disabled = false;
         } else {
@@ -122,6 +122,7 @@ class Flashcard {
         })
         .then(resp => resp.json())
         .then(flashcard => {
+            currentDeckFlashcards.push(flashcard.data);
             Flashcard.lastFlashcard()
         })
     }
@@ -134,7 +135,7 @@ class Flashcard {
         .then(json => {
             let arr = json.data.filter(flashcard => flashcard.attributes.deck_id === deckId)
             arr.forEach(card => currentDeckFlashcards.push(card))
-            Flashcard.displayFlashcard();
+            Flashcard.displayFlashcard(currentFlashcard);
         });
     }
 

@@ -134,4 +134,22 @@ class Flashcard {
         });
     }
 
+    static editFlashcard = () => {
+        console.log("I'm inside the edit button")
+
+        flashcardContainer.innerHTML = `
+        <form id='edit-flashcard-form'>
+            <label for="front">Front: </label>
+            <input id='input-front' type='text' name='front' value="" placeholder="Front of Flashcard">
+            <br>
+            <label for="back">Back: </label>
+            <input id='input-back' type='text' name='back' value="" placeholder="Back of Flashcard">
+            <br>
+            <input id='create-flashcard-button' type='submit' name='flashcard-submit' value="Create New Flashcard">
+        </form>`
+        const editForm = document.getElementById('edit-flashcard-form')
+        editForm.addEventListener('submit', Flashcard.handleNewFlashcardSubmit)
+
+    }
+
 }

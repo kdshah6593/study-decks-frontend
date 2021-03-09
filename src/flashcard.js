@@ -153,14 +153,14 @@ class Flashcard {
         flashcardContainer.innerHTML = `
         <form id='edit-flashcard-form'>
             <input type='hidden' id='input-id' name='id' value='${card.id}'>
-            <input type='hidden' id='input-deck-id' name='deck-id' value='${card.deck_id}'>
+            <input type='hidden' id='input-deck-id' name='deck-id' value='${card.attributes.deck_id}'>
             <label for="front">Front: </label>
-            <input id='input-front' type='text' name='front' value="${card.attributes.front}" placeholder="Front of Flashcard">
+            <input id='input-front' type='text' name='front' value="${card.attributes.front}">
             <br>
             <label for="back">Back: </label>
-            <input id='input-back' type='text' name='back' value="${card.attributes.back}" placeholder="Back of Flashcard">
+            <input id='input-back' type='text' name='back' value="${card.attributes.back}">
             <br>
-            <input id='create-flashcard-button' type='submit' name='flashcard-submit' value="Create New Flashcard">
+            <input id='create-flashcard-button' type='submit' name='flashcard-submit' value="Update Flashcard">
         </form>`
         const editForm = document.getElementById('edit-flashcard-form')
         editForm.addEventListener('submit', Flashcard.handleEditFlashcardSubmit)
@@ -178,7 +178,7 @@ class Flashcard {
     }
 
     static updateFlashcard = (id, front, back, deck_id) => {
-        updateData = {front, back, deck_id}
+        const updateData = {front, back, deck_id}
 
         fetch(flashcardEndPoint + `/${id}`, {
             method: 'PATCH',

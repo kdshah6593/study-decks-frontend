@@ -22,7 +22,7 @@ class Flashcard {
         flashcardContainer.innerHTML = "";
         const flashcardP = document.createElement('p');
         flashcardP.id = "front"
-        flashcardP.innerText = obj.front;
+        flashcardP.innerText = obj.attributes.front;
         flashcardContainer.append(flashcardP);
         Flashcard.statusCheck();
     }
@@ -131,8 +131,7 @@ class Flashcard {
         .then(json => {
             let arr = json.data.filter(flashcard => flashcard.attributes.deck_id === deckId)
             arr.forEach(card => currentDeckFlashcards.push(card))
-            debugger
-            return currentDeckFlashcards
+            Flashcard.displayFlashcard();
         });
     }
 

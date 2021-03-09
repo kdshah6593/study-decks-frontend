@@ -2,7 +2,6 @@ const flashcardEndPoint = "http://localhost:3000/api/v1/flashcards";
 let currentDeckFlashcards = [];
 
 class Flashcard {
-    //append the flashcard passed into it; if no flashcard passed in, then do first flashcard of deck
     static displayFlashcard = (fcNum) => {
         if (fcNum === null) {
             if (currentDeckFlashcards.length === 0) {
@@ -114,7 +113,6 @@ class Flashcard {
         const inputDeckId = Deck.search(currentDeck).id
 
         Flashcard.postNewFlashcard(inputFront, inputBack, inputDeckId)
-        //remove form and append Ajax data
     }
 
     static postNewFlashcard = (front, back, deck_id) => {
@@ -148,9 +146,7 @@ class Flashcard {
     }
 
     // edit methods
-
     static editFlashcard = () => {
-        //fetch that flashcard because no constructor that stores them
         const fcId = document.querySelector('#flashcard-container p').dataset.id
         fetch(flashcardEndPoint + `/${fcId}`)
         .then(response => response.json())
@@ -207,7 +203,6 @@ class Flashcard {
     }
 
     // delete functions
-
     static deleteFlashcard = () => {
         const fcId = document.querySelector('#flashcard-container p').dataset.id // "6"
         const fc = currentDeckFlashcards.find(e => e.id === fcId) // flashcard object

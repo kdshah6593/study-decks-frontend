@@ -35,7 +35,7 @@ class Deck {
         deckDelBtn.style.display = 'inline'
         deckDelBtn.innerText = 'Delete'
         deckLi.append(deckDelBtn)
-        // deckLi.innerText = `${this.title}`
+
         deckCount++;
 
         //add eventListener for click on LI
@@ -48,7 +48,7 @@ class Deck {
         console.log("I'm clicking on this Deck")
         console.log(e.target)
         currentDeck = parseInt(e.target.dataset.id) //string number to integer number
-        currentFlashcard = null //always resets flashcards
+        currentFlashcard = null //resets flashcards
         Flashcard.getFlashcards()
     }
 
@@ -61,11 +61,6 @@ class Deck {
             newDeck.renderDeck()
             })
         );
-    }
-
-    //change this to handleNewDeckSubmit / postNewDeck methods
-    static createDeck = () => {
-
     }
 
     // delete fetch request

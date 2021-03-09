@@ -1,28 +1,22 @@
 Next Steps
-# New Flashcard
-1. Click on New flashcard button
-2. appends a new flashcard form in the flashcard container
-3. sends ajax post request to backend
-4. response is returned and displays that flashcard on DOM
-
-# Edit Flashcard
-1. Click on edit flashcard button
-2. appends an edit flashcard form in the flashcard container; autofills in the current values
-3. Sends ajax patch request to backend
-4. reponse is returned and displays that flashcard on DOM
-
 # Delete Flashcard
-
+1. Click delete flashcard button, eventlistener
+2. The eventlistener handles the click and sends a delete fetch request to backend
+3. Change the currentFlashcard back to 0 or null
+4. Run getFlashcards()
 
 # Delete a Deck (will destroy all flashcards with it)
+1. CLick delete deck button, alert about deleting
+2. Event listener handles the click and sends a delete fetch request to the backend
+3. Change currentDeck back to null, currentFlashcard back to null
+4. Run getDecks()
 
+
+# Disable / Enable Buttons Appropriately
+1. Buttons should be disabled with new form? edit form?
 
 
 # Future Steps
 1. Bootstrap CSS
 2. User Login / Authentication
 4. Implement .catch() in fetch requests to handle errors.
-
-
-
-when you make new deck, it should set current deck to equal it's dataset id

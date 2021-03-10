@@ -5,12 +5,11 @@ let deckCount = 0;
 class Deck {
     static all = []
     
-    constructor(deck, deckAttributes) {
+    constructor(deck) {
         // set properties of each deck
         this.id = deck.id;
-        this.title = deckAttributes.title;
-        this.userId = deckAttributes.user_id;
-        this.flashcards = deckAttributes.flashcards;
+        this.title = deck.title;
+        this.userId = deck.user_id;
 
         //remember all decks
         Deck.all.push(this)
@@ -68,7 +67,7 @@ class Deck {
         })
         .then(response => response.json())
         .then(json => json.data.attributes.decks.forEach(deck => {
-            let newDeck = new Deck(deck, deck.attributes)
+            let newDeck = new Deck(deck)
             newDeck.renderDeck()
             })
         );

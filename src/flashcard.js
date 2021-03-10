@@ -67,6 +67,7 @@ class Flashcard {
 
     //flip Flashcard
     static flipFlashcard = () => {
+        $('.flip').toggleClass('flip-active');
         const fcId = document.getElementById("front")
         const fcDataId = document.querySelector('#flashcard-container p').dataset.id
         const fc = currentDeckFlashcards.find(e => e.id === fcDataId)
@@ -82,6 +83,7 @@ class Flashcard {
             flashcardContainer.innerHTML = "";
             const flashcardP = document.createElement('p');
             flashcardP.id = "back";
+            flashcardP.className= "flip-active";
             flashcardP.dataset.id = fc.id;
             flashcardP.innerText = fc.attributes.back;
             flashcardContainer.append(flashcardP)

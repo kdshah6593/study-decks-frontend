@@ -31,6 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     previousFlashcardBtn.addEventListener('click', Flashcard.previousFlashcard)
 
+    // $(flipFlashcardBtn).click(function () {
+    //     $('.flip').toggleClass('flip-active');
+    //   })
+
     flipFlashcardBtn.addEventListener('click', Flashcard.flipFlashcard)
 
     newFlashcardBtn.addEventListener('click', Flashcard.newFlashcard)
@@ -48,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     signupLink.addEventListener('click', User.signupLinkHandler)
 
     logoutBtn.addEventListener('click', User.logoutHandler)
+
 
 })
 

@@ -29,7 +29,12 @@ class User {
         })
         .then((response) => response.json())
         .then(json => {
-            console.log(json)
+            localStorage.setItem('jwt_token', json.jwt)
+            const userId = json.user.data.id
+            //this show now hide the login and show the main page
+            loginDiv.hidden = true;
+            mainContainer.hidden = false;
+            Deck.getDecks(userId)
         })
     }
 
@@ -48,7 +53,12 @@ class User {
         })
         .then((response) => response.json())
         .then(json => {
-            console.log(json)
+            localStorage.setItem('jwt_token', json.jwt)
+            const userId = json.user.data.id
+            //this show now hide the login and show the main page
+            signupDiv.hidden = true;
+            mainContainer.hidden = false;
+            Deck.getDecks(userId)
         })
     }
 

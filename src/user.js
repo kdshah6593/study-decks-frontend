@@ -39,7 +39,7 @@ class User {
         })
         .then((response) => {
             if(response.status === 401) {
-                User.renderError(response)
+                this.renderError(response)
             } else {
                 return response.json()
             }
@@ -70,7 +70,7 @@ class User {
         })
         .then((response) => {
             if(response.status === 406) {
-                User.renderError(response)
+                this.renderError(response)
             } else {
                 return response.json()
             }

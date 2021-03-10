@@ -11,6 +11,8 @@ const signupForm = document.getElementById('signup-form')
 const loginDiv = document.getElementById('login-form-div')
 const signupDiv = document.getElementById('signup-form-div')
 const mainContainer = document.getElementById('main-container')
+const loginLink = document.getElementById('login-link')
+const signupLink = document.getElementById('signup-link')
 let currentDeck = null; // this will maintain state; which deck is currently being used; based on dataset id
 let currentFlashcard = null; // this will maintain state; which flashcard user is on
 
@@ -39,6 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.addEventListener('submit', (e) => User.loginFormHandler(e))
 
     signupForm.addEventListener('submit', (e) => User.signupFormHandler(e))
+
+    loginLink.addEventListener('click', User.loginLinkHandler)
+
+    signupLink.addEventListener('click', User.signupLinkHandler)
 
 })
 

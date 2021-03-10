@@ -1,5 +1,15 @@
 class User {
     
+    static loginLinkHandler = () => {
+        loginDiv.hidden = false;
+        signupDiv.hidden = true;
+    }
+
+    static signupLinkHandler = () => {
+        loginDiv.hidden = true;
+        signupDiv.hidden = false;
+    }
+    
     static loginFormHandler = (e) => {
         e.preventDefault();
         const usernameInput = e.target.getElementById("login-username").value

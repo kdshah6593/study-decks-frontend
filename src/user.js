@@ -38,7 +38,6 @@ class User {
             body: JSON.stringify(inputData)
         })
         .then((response) => {
-            console.log(response)
             if(response.status === 401) {
                 User.renderError(response)
             } else {
@@ -70,7 +69,6 @@ class User {
             body: JSON.stringify(inputData)
         })
         .then((response) => {
-            console.log(response)
             if(response.status === 406) {
                 User.renderError(response)
             } else {

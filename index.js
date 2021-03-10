@@ -7,6 +7,8 @@ const flipFlashcardBtn = document.getElementById('flip-btn')
 const newFlashcardBtn = document.getElementById('new-flashcard-btn')
 const editFlashcardBtn = document.getElementById('edit-flashcard-btn')
 const deleteFlashcardBtn = document.getElementById('delete-flashcard-btn')
+const loginForm = document.getElementById('login-form')
+const signupForm = document.getElementById('signup-form')
 let currentDeck = null; // this will maintain state; which deck is currently being used; based on dataset id
 let currentFlashcard = null; // this will maintain state; which flashcard user is on
 
@@ -31,6 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
     editFlashcardBtn.addEventListener('click', Flashcard.editFlashcard)
 
     deleteFlashcardBtn.addEventListener('click', Flashcard.deleteFlashcard)
+
+    loginForm.addEventListener('submit', (e) => User.loginFormHandler(e))
+
+    signupForm.addEventListener('submit', (e) => User.signupFormHandler(e))
 
 })
 

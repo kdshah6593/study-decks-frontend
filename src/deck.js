@@ -146,7 +146,13 @@ class Deck {
             },
             body: JSON.stringify(inputData)
         })
-        .then(resp => resp.json())
+        .then((response) => {
+            if(response.status === 422) {
+                User.renderError(response)
+            } else {
+                return response.json()
+            }
+        })
         .then(deck => {
             console.log(deck);
             const deckData = Object.assign({}, {id: deck.data.id}, {type: deck.data.type}, deck.data.attributes)

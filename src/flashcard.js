@@ -127,7 +127,13 @@ class Flashcard {
             },
             body: JSON.stringify(inputData)
         })
-        .then(resp => resp.json())
+        .then((response) => {
+            if(response.status === 422) {
+                User.renderError(response)
+            } else {
+                return response.json()
+            }
+        })
         .then(flashcard => {
             currentDeckFlashcards.push(flashcard.data);
             Flashcard.lastFlashcard()

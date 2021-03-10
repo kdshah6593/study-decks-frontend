@@ -6,12 +6,10 @@ class Deck {
     static all = []
     
     constructor(deck) {
-        // set properties of each deck
         this.id = deck.id;
         this.title = deck.title;
         this.userId = deck.user_id;
 
-        //remember all decks
         Deck.all.push(this)
     }
 
@@ -126,7 +124,7 @@ class Deck {
     static handleNewDeckSubmit = (e) => {
         e.preventDefault()
         const inputTitle = document.querySelector('#input-title').value
-        const inputUserId = parseInt(localStorage.getItem('currentUser')) //need to remove the hard-coded user
+        const inputUserId = parseInt(localStorage.getItem('currentUser'))
     
         this.postNewDeck(inputTitle, inputUserId)
         // reset form

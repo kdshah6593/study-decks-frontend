@@ -12,15 +12,15 @@ class User {
     
     static loginFormHandler = (e) => {
         e.preventDefault();
-        const usernameInput = e.target.getElementById("login-username").value
-        const passwordInput = e.target.getElementById("login-password").value
+        const usernameInput = e.target.querySelector("#login-username").value
+        const passwordInput = e.target.querySelector("#login-password").value
         this.loginFetch(usernameInput, passwordInput)
     }
 
     static signupFormHandler = (e) => {
         e.preventDefault();
-        const usernameInput = e.target.getElementById("signup-username").value
-        const passwordInput = e.target.getElementById("signup-password").value
+        const usernameInput = e.target.querySelector("#signup-username").value
+        const passwordInput = e.target.querySelector("#signup-password").value
         this.signupFetch(usernameInput, passwordInput)
     }
 

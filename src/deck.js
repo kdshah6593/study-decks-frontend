@@ -150,7 +150,9 @@ class Deck {
         })
         .then(resp => resp.json())
         .then(deck => {
-            const newDeck = new Deck(deck.data, deck.data.attributes)
+            console.log(deck);
+            const deckData = Object.assign({}, {id: deck.data.id}, {type: deck.data.type}, deck.data.attributes)
+            const newDeck = new Deck(deckData)
             newDeck.renderDeck()
             currentDeck = parseInt(newDeck.id) - 1 //same as dataset-id of the li its in
             currentFlashcard = null

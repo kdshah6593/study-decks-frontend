@@ -24,6 +24,8 @@ class Deck {
         const deckP = document.createElement('p');
         const deckDelBtn = document.createElement('button');
 
+        deckLi.className = 'list-group-item d-flex justify-content-between align-items-center"'
+
         deckLi.dataset.id = deckCount
         deckLi.id = this.title
 

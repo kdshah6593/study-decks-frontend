@@ -10,15 +10,23 @@ html, body, #main-container {
     height: 100vh;
 }
 
+#right-container {
+    background-color: #E9E0F1;
+}
+
+#left-container {
+    background-color: #57545A;
+}
+
 #flashcard-container {
     height: 50vh;
     width: 75vh;
-    margin-top: 10vh;
+    margin-top: 7vh;
+    background-color: #EEEEEE;
 }
 
 #flashcard-buttons {
     margin-top: 5vh;
-    align-items: center;
 }
 
 li {
@@ -28,6 +36,11 @@ li {
 
 li p {
     cursor: pointer;
+    font-size: 1em;
+    font-weight: 700;
+    margin-top: 5px;
+    margin-bottom: -5px;
+
 }
 
 .form-signin {
@@ -39,4 +52,32 @@ li p {
 
 #page-header {
     margin-top: 10vh;
+}
+
+#page-title {
+    margin-top: 2vh;
+}
+
+#front {
+    margin-top: 17vh;
+    font-size: 3vw;
+}
+
+#back {
+    margin-top: 17vh;
+    font-size: 2vw;
+}
+
+.footer {
+    background-color: teal;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 8px 10px;
+}
+
+#deck-title {
+    margin-top: 2vh;
+    color: #fff;
 }

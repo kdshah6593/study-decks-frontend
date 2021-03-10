@@ -126,7 +126,7 @@ class Deck {
     static handleNewDeckSubmit = (e) => {
         e.preventDefault()
         const inputTitle = document.querySelector('#input-title').value
-        const inputUserId = parseInt("1") //need to remove the hard-coded user
+        const inputUserId = parseInt(localStorage.getItem('currentUser')) //need to remove the hard-coded user
     
         this.postNewDeck(inputTitle, inputUserId)
         // reset form

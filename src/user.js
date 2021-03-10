@@ -41,6 +41,7 @@ class User {
         .then(json => {
             localStorage.setItem('jwt_token', json.jwt)
             const userId = json.user.data.id
+            localStorage.setItem('currentUser', userId)
             //this show now hide the login and show the main page
             loginDiv.hidden = true;
             mainContainer.hidden = false;
@@ -73,7 +74,7 @@ class User {
     }
 
     static logoutHandler = () => {
-        
+
     }
 
 }

@@ -1,3 +1,5 @@
+const deckEndPoint = "http://localhost:3000/api/v1/decks";
+const userEndPoint = "http://localhost:3000/api/v1/users";
 let deckCount = 0;
 
 class Deck {
@@ -57,10 +59,15 @@ class Deck {
     }
 
 
-    static getDecks = () => {
-        fetch(endPoint)
+    static getDecks = (id) => {
+        fetch(userEndPoint + `/${id}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
+            }
+        })
         .then(response => response.json())
-        .then(json => json.data.forEach(deck => {
+        .then(json => json.data.attributes.decks.forEach(deck => {
             let newDeck = new Deck(deck, deck.attributes)
             newDeck.renderDeck()
             })
@@ -82,11 +89,12 @@ class Deck {
             const deckId = parseInt(e.target.parentElement.dataset.id) //index in Deck.all
             const deck = Deck.search(deckId) // actual deck
     
-            fetch(endPoint + `/${deck.id}`, {
+            fetch(deckEndPoint + `/${deck.id}`, {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
-                    "Accept": "application/json"
+                    "Accept": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
                 }
             })
             .then(resp => resp.json())
@@ -132,11 +140,12 @@ class Deck {
     static postNewDeck = (title, user_id) => {
         const inputData = {title, user_id}
     
-        fetch(endPoint, {
+        fetch(deckEndPoint, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Accept": "application/json",
+                Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
             },
             body: JSON.stringify(inputData)
         })

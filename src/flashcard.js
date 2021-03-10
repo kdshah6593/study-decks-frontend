@@ -122,7 +122,8 @@ class Flashcard {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Accept": "application/json",
+                Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
             },
             body: JSON.stringify(inputData)
         })
@@ -136,7 +137,14 @@ class Flashcard {
     static getFlashcards = () => {
         currentDeckFlashcards = [];
         const deckId = parseInt(Deck.search(currentDeck).id)
-        fetch(flashcardEndPoint)
+        fetch(flashcardEndPoint , {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
+            }
+        })
         .then(response => response.json())
         .then(json => {
             let arr = json.data.filter(flashcard => flashcard.attributes.deck_id === deckId)
@@ -148,7 +156,14 @@ class Flashcard {
     // edit methods
     static editFlashcard = () => {
         const fcId = document.querySelector('#flashcard-container p').dataset.id
-        fetch(flashcardEndPoint + `/${fcId}`)
+        fetch(flashcardEndPoint + `/${fcId}`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
+            }
+        })
         .then(response => response.json())
         .then(json => {
             console.log(json)
@@ -191,7 +206,8 @@ class Flashcard {
             method: 'PATCH',
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Accept": "application/json",
+                Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
             },
             body: JSON.stringify(updateData)
         })
@@ -215,7 +231,8 @@ class Flashcard {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
-                    "Accept": "application/json"
+                    "Accept": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
                 }
             })
             .then(resp => resp.json())

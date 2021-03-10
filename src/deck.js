@@ -1,16 +1,15 @@
+const deckEndPoint = "http://localhost:3000/api/v1/decks";
+const userEndPoint = "http://localhost:3000/api/v1/users";
 let deckCount = 0;
 
 class Deck {
     static all = []
     
-    constructor(deck, deckAttributes) {
-        // set properties of each deck
+    constructor(deck) {
         this.id = deck.id;
-        this.title = deckAttributes.title;
-        this.userId = deckAttributes.user_id;
-        this.flashcards = deckAttributes.flashcards;
+        this.title = deck.title;
+        this.userId = deck.user_id;
 
-        //remember all decks
         Deck.all.push(this)
     }
 
@@ -23,6 +22,8 @@ class Deck {
         const deckLi = document.createElement('li');
         const deckP = document.createElement('p');
         const deckDelBtn = document.createElement('button');
+
+        deckLi.className = 'list-group-item d-flex justify-content-between align-items-center"'
 
         deckLi.dataset.id = deckCount
         deckLi.id = this.title
@@ -55,11 +56,16 @@ class Deck {
     }
 
 
-    static getDecks = () => {
-        fetch(endPoint)
+    static getDecks = (id) => {
+        fetch(userEndPoint + `/${id}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
+            }
+        })
         .then(response => response.json())
-        .then(json => json.data.forEach(deck => {
-            let newDeck = new Deck(deck, deck.attributes)
+        .then(json => json.data.attributes.decks.forEach(deck => {
+            let newDeck = new Deck(deck)
             newDeck.renderDeck()
             })
         );
@@ -80,11 +86,12 @@ class Deck {
             const deckId = parseInt(e.target.parentElement.dataset.id) //index in Deck.all
             const deck = Deck.search(deckId) // actual deck
     
-            fetch(endPoint + `/${deck.id}`, {
+            fetch(deckEndPoint + `/${deck.id}`, {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",
-                    "Accept": "application/json"
+                    "Accept": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
                 }
             })
             .then(resp => resp.json())
@@ -117,7 +124,7 @@ class Deck {
     static handleNewDeckSubmit = (e) => {
         e.preventDefault()
         const inputTitle = document.querySelector('#input-title').value
-        const inputUserId = parseInt("1") //need to remove the hard-coded user
+        const inputUserId = parseInt(localStorage.getItem('currentUser'))
     
         this.postNewDeck(inputTitle, inputUserId)
         // reset form
@@ -130,17 +137,20 @@ class Deck {
     static postNewDeck = (title, user_id) => {
         const inputData = {title, user_id}
     
-        fetch(endPoint, {
+        fetch(deckEndPoint, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Accept": "application/json",
+                Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
             },
             body: JSON.stringify(inputData)
         })
         .then(resp => resp.json())
         .then(deck => {
-            const newDeck = new Deck(deck.data, deck.data.attributes)
+            console.log(deck);
+            const deckData = Object.assign({}, {id: deck.data.id}, {type: deck.data.type}, deck.data.attributes)
+            const newDeck = new Deck(deckData)
             newDeck.renderDeck()
             currentDeck = parseInt(newDeck.id) - 1 //same as dataset-id of the li its in
             currentFlashcard = null

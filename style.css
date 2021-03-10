@@ -81,3 +81,12 @@ li p {
     margin-top: 2vh;
     color: #fff;
 }
+
+#new-deck-btn {
+    display: inline-block;
+}
+
+#logout {
+    display: inline-block;
+    margin-left: 65px;
+}

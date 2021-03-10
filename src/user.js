@@ -72,4 +72,8 @@ class User {
         })
     }
 
+    static logoutHandler = () => {
+        
+    }
+
 }

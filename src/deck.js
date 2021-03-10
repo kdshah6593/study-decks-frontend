@@ -47,14 +47,21 @@ class Deck {
     }
 
     handleDeckClick = (e) => {
-        console.log("I'm clicking on this Deck")
-        console.log(e.target)
         let parent = e.target.parentElement
         currentDeck = parseInt(parent.dataset.id) //string number to integer number
         currentFlashcard = null //resets flashcards
+        Deck.enableButtons()
         Flashcard.getFlashcards()
     }
 
+    static enableButtons = () => {
+        nextFlashcardBtn.disabled = false;
+        previousFlashcardBtn.disabled = false;
+        flipFlashcardBtn.disabled = false;
+        newFlashcardBtn.disabled = false;
+        editFlashcardBtn.disabled = false;
+        deleteFlashcardBtn.disabled = false;
+    }
 
     static getDecks = (id) => {
         fetch(userEndPoint + `/${id}`, {

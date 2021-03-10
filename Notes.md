@@ -1,6 +1,5 @@
 Next Steps
-# Bootstrap CSS
-2. animations -> "https://www.w3schools.com/howto/howto_css_flip_card.asp"
+# Refactor
 
 # Stretch Goals
 1. Keep Track with Pill Badge the number of flashcards in the deck

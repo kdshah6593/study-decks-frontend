@@ -78,6 +78,7 @@ class User {
         .then(json => {
             localStorage.setItem('jwt_token', json.jwt)
             const userId = json.user.data.id
+            localStorage.setItem('currentUser', userId)
 
             signupDiv.hidden = true;
             mainContainer.hidden = false;

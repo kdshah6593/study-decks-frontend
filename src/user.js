@@ -37,7 +37,13 @@ class User {
             },
             body: JSON.stringify(inputData)
         })
-        .then((response) => response.json())
+        .then((response) => {
+            if(response.status === 401) {
+                User.renderError(response)
+            } else {
+                return response.json()
+            }
+        })
         .then(json => {
             localStorage.setItem('jwt_token', json.jwt)
             const userId = json.user.data.id
@@ -62,7 +68,13 @@ class User {
             },
             body: JSON.stringify(inputData)
         })
-        .then((response) => response.json())
+        .then((response) => {
+            if(response.status === 406) {
+                User.renderError(response)
+            } else {
+                return response.json()
+            }
+        })
         .then(json => {
             localStorage.setItem('jwt_token', json.jwt)
             const userId = json.user.data.id
@@ -70,6 +82,14 @@ class User {
             signupDiv.hidden = true;
             mainContainer.hidden = false;
             Deck.getDecks(userId)
+        })
+    }
+
+    static renderError = (response) => {
+        response.json().then(error => {
+            console.log(error)
+            const mesg = error.errors[0];
+            alert(mesg);
         })
     }
 }

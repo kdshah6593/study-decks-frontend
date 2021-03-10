@@ -41,32 +41,41 @@ li p {
     font-weight: 700;
     margin-top: 5px;
     margin-bottom: -5px;
+    font-family: 'Montserrat', sans-serif;
 
+}
+
+.list-group-item {
+    background-color: #E8F1E0;
 }
 
 .form-signin {
     width: 100%;
     max-width: 330px;
     padding: 15px;
-    margin: 13vh auto;
+    margin: 10vh auto;
 }
 
 #page-header {
     margin-top: 10vh;
+    font-family: 'Pacifico', cursive;
+    font-size: 75px;
 }
 
 #page-title {
     margin-top: 2vh;
+    font-family: 'Pacifico', cursive;
+    font-size: 75px;
 }
 
 #front {
-    margin-top: 17vh;
-    font-size: 3vw;
+    margin-top: 16vh;
+    font-size: 2.5vw;
 }
 
 #back {
-    margin-top: 17vh;
-    font-size: 2vw;
+    margin-top: 13vh;
+    font-size: 1.5vw;
 }
 
 .footer {
@@ -76,9 +85,11 @@ li p {
     bottom: 0;
     width: 16.7%;
     padding: 8px 10px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #deck-title {
     margin-top: 2vh;
     color: #fff;
+    font-family: 'Pacifico', cursive;
 }

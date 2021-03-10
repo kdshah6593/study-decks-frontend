@@ -1,7 +1,10 @@
 Next Steps
 # Bootstrap CSS
 1. Coloring, sizing, flashcard
-2. animations
+2. animations -> "https://www.w3schools.com/howto/howto_css_flip_card.asp"
+3. Fix footer color
+4. Login and Sign up will need coloring
+5. New deck form needs formatting
 
 
 # User Login

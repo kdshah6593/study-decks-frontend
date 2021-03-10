@@ -1,5 +1,6 @@
 html, body, #main-container {
     height: 100%;
+    background-color: #E9E0F1;
 }
 
 #main-container .row .col-2 {
@@ -15,7 +16,7 @@ html, body, #main-container {
 }
 
 #left-container {
-    background-color: #57545A;
+    background-color: #1D1C1E;
 }
 
 #flashcard-container {
@@ -69,24 +70,15 @@ li p {
 }
 
 .footer {
-    background-color: teal;
+    background-color: #E8F1E0;
     overflow: hidden;
-    position: fixed;
+    float: left;
     bottom: 0;
-    width: 100%;
+    width: 16.7%;
     padding: 8px 10px;
 }
 
 #deck-title {
     margin-top: 2vh;
     color: #fff;
-}
-
-#new-deck-btn {
-    display: inline-block;
-}
-
-#logout {
-    display: inline-block;
-    margin-left: 65px;
 }

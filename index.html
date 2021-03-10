@@ -12,35 +12,35 @@
         <!-- Initial Login Screen, hide this after click button to login -->
         <div id="login-form-div" class="text-center">
             <h1 id="page-header">StudyDecks</h1>
-            <form id="login-form" class="form-signin">
-                <h1 class="h3 mb-3 fw-normal">Login</h1>
+            <form id="login-form" class="form-signin border border-4 rounded-3 border-dark">
+                <h1 class="h3 mb-3 fw-bold">Login</h1>
 
                 <label for="username" class="visually-hidden">Username</label>
                 <input type="text" id="login-username" class="form-control" placeholder="Username" required autofocus>
 
                 <label for="password" class="visually-hidden">Password</label>
                 <input type="password" id="login-password" class="form-control" placeholder="Password" required autofocus>
-
+                <br>
                 <p>Need an account? <span><a id="signup-link" href="#">Sign Up</a></span></p>
                 <button type="submit" class="w-100 btn btn-lg btn-primary">Log In</button>
-                <p class="mt-5 mb-3 text-muted">© 2021</p>
+                <p class="mt-5 mb-3 text-muted">© 2021 - Kunal Shah</p>
             </form>
         </div>
         <!-- Sign Up Screen, hidden show if sign-up button clicked -->
         <div id="signup-form-div" class="text-center" hidden>
             <h1 id="page-header">StudyDecks</h1>
-            <form id="signup-form" class="form-signin">
-                <h1 class="h3 mb-3 fw-normal">Sign Up</h1>
+            <form id="signup-form" class="form-signin border border-4 rounded-3 border-dark">
+                <h1 class="h3 mb-3 fw-bold">Sign Up</h1>
 
                 <label for="username" class="visually-hidden">Username</label>
                 <input type="text" id="signup-username" class="form-control" placeholder="Username" required autofocus>
 
                 <label for="password" class="visually-hidden">Password</label>
                 <input type="password" id="signup-password" class="form-control" placeholder="Password" required autofocus>
-
+                <br>
                 <p>Already have an account? <span><a id="login-link" href='#'>Log In</a></span></p>
                 <button type="submit" class="w-100 btn btn-lg btn-primary">Sign Up</button>
-                <p class="mt-5 mb-3 text-muted">© 2021</p>
+                <p class="mt-5 mb-3 text-muted">© 2021 - Kunal Shah</p>
             </form>
         </div>
 
@@ -51,20 +51,26 @@
                 <div id="left-container" class="container col-2">
                     <div id='decks-list-div'>
                         <h4 id="deck-title" class="text-center">Your Decks</h4>
-                        <button id='new-deck-btn' class="btn btn-sm btn-primary">New Deck</button>
-                        <button id='logout' class="btn btn-sm btn-danger" onclick="javascript:window.location.reload(true)">Logout</button>
-                        <br><br>
+                        <div class="d-flex justify-content-between">
+                            <button id='new-deck-btn' class="btn btn-sm btn-primary">New Deck</button>
+                            <button id='logout' class="btn btn-sm btn-danger" onclick="javascript:window.location.reload(true)">Logout</button>
+                        </div>
+                        <br>
                         <ul id='decks-list' class="list-unstyled list-group list-group-flush">
                             <li id='new-deck' style="display:none;">
                                 <form id='new-deck-form'>
                                     <input id='input-title' type='text' name='title' value="" placeholder="Enter Deck Title">
                                     <br>
-                                    <input id='create-deck-button' type='submit' name='deck-submit' value="Create New Deck">
+                                    <input id='create-deck-button' type='submit' class="btn btn-sm btn-primary" name='deck-submit' value="Create New Deck">
                                 </form>
                             </li>
+                            <br>
                         </ul>
                   
                     </div>
+                    <footer class="footer fixed-bottom text-center">
+                        <span>Created by Kunal Shah</span>
+                    </footer>
                 </div>
         
                 <div id="right-container" class="container col-10">
@@ -87,9 +93,6 @@
 
             </div>
         </div>
-        <footer class="footer fixed-bottom text-center">
-            <span>Created by Kunal Shah</span>
-        </footer>
 
 
         <!--JS Scripts -->

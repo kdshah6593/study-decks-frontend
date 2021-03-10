@@ -1,4 +1,3 @@
-const endPoint = "http://localhost:3000/api/v1/decks";
 const decksList = document.getElementById('decks-list')
 const flashcardContainer = document.getElementById('flashcard-container')
 const nextFlashcardBtn = document.getElementById('next-btn')
@@ -9,12 +8,15 @@ const editFlashcardBtn = document.getElementById('edit-flashcard-btn')
 const deleteFlashcardBtn = document.getElementById('delete-flashcard-btn')
 const loginForm = document.getElementById('login-form')
 const signupForm = document.getElementById('signup-form')
+const loginDiv = document.getElementById('login-form-div')
+const signupDiv = document.getElementById('signup-form-div')
+const mainContainer = document.getElementById('main-container')
 let currentDeck = null; // this will maintain state; which deck is currently being used; based on dataset id
 let currentFlashcard = null; // this will maintain state; which flashcard user is on
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    Deck.getDecks()
+    // Deck.getDecks() this should now move to after user logs in
 
     const newDeckBtn = document.getElementById('new-deck-btn')
     newDeckBtn.addEventListener('click', Deck.handleNewDeckDisplay)

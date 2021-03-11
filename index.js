@@ -1,4 +1,6 @@
 const decksList = document.getElementById('decks-list')
+const newDeckBtn = document.getElementById('new-deck-btn')
+const newDeckForm = document.getElementById('new-deck-form')
 const flashcardContainer = document.getElementById('flashcard-container')
 const nextFlashcardBtn = document.getElementById('next-btn')
 const previousFlashcardBtn = document.getElementById('previous-btn')
@@ -14,26 +16,19 @@ const mainContainer = document.getElementById('main-container')
 const loginLink = document.getElementById('login-link')
 const signupLink = document.getElementById('signup-link')
 const logoutBtn = document.getElementById('logout')
-let currentDeck = null; // this will maintain state; which deck is currently being used; based on dataset id
-let currentFlashcard = null; // this will maintain state; which flashcard user is on
+let currentDeck = null; // maintains state; deck currently being used; based on dataset id
+let currentFlashcard = null; // maintains state; current flashcard
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Deck.getDecks() this should now move to after user logs in
 
-    const newDeckBtn = document.getElementById('new-deck-btn')
     newDeckBtn.addEventListener('click', Deck.handleNewDeckDisplay)
 
-    const newDeckForm = document.getElementById('new-deck-form')
     newDeckForm.addEventListener('submit', (e) => Deck.handleNewDeckSubmit(e))
 
     nextFlashcardBtn.addEventListener('click', Flashcard.nextFlashcard)
 
     previousFlashcardBtn.addEventListener('click', Flashcard.previousFlashcard)
-
-    // $(flipFlashcardBtn).click(function () {
-    //     $('.flip').toggleClass('flip-active');
-    //   })
 
     flipFlashcardBtn.addEventListener('click', Flashcard.flipFlashcard)
 
@@ -52,10 +47,4 @@ document.addEventListener('DOMContentLoaded', () => {
     signupLink.addEventListener('click', User.signupLinkHandler)
 
     logoutBtn.addEventListener('click', User.logoutHandler)
-
-
 })
-
-// Site Should Load With No Decks Showing, FlashCard space empty, and where the decks would go a login for user
-//After User login, then site should make a fetch request and add all the decks of the user
-//User clicks on a deck, fetch request made to load flashcard

@@ -1,20 +1,41 @@
 const flashcardEndPoint = "http://localhost:3000/api/v1/flashcards";
 let currentDeckFlashcards = [];
 
-class Flashcard {
+class Flashcard { 
+    // Get Flashcards of Current Deck
+    static getFlashcards = () => {
+        currentDeckFlashcards = [];
+        const deckId = parseInt(Deck.search(currentDeck).id)
+        fetch(flashcardEndPoint , {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
+            }
+        })
+        .then(response => response.json())
+        .then(json => {
+            let arr = json.data.filter(flashcard => flashcard.attributes.deck_id === deckId)
+            arr.forEach(card => currentDeckFlashcards.push(card))
+            Flashcard.displayFlashcard(currentFlashcard);
+        });
+    }
+    
+    // Display Flashcard Methods
     static displayFlashcard = (fcNum) => {
         if (fcNum === null) {
             if (currentDeckFlashcards.length === 0) {
-                Flashcard.statusCheck();
-                Flashcard.newFlashcard();
+                this.statusCheck();
+                this.newFlashcard();
             } else {
                 const theFlashcard = currentDeckFlashcards[0]
                 currentFlashcard = 0;
-                Flashcard.appendFlashcard(theFlashcard)
+                this.appendFlashcard(theFlashcard)
             }
         } else {
             const theFlashcard = currentDeckFlashcards[fcNum]
-            Flashcard.appendFlashcard(theFlashcard)
+            this.appendFlashcard(theFlashcard)
         }
     }
 
@@ -30,42 +51,19 @@ class Flashcard {
 
     static nextFlashcard = () => {
         currentFlashcard++;
-        Flashcard.displayFlashcard(currentFlashcard)
+        this.displayFlashcard(currentFlashcard)
     }
 
     static previousFlashcard = () => {
         currentFlashcard--;
-        Flashcard.displayFlashcard(currentFlashcard)
+        this.displayFlashcard(currentFlashcard)
     }
 
     static lastFlashcard = () => {
         currentFlashcard = currentDeckFlashcards.length - 1;
-        Flashcard.displayFlashcard(currentFlashcard)
+        this.displayFlashcard(currentFlashcard)
     }
 
-    //check if current flashcard is first or last in array of flashcards; if so, disable buttons
-    static statusCheck = () => {
-        const theDeck = currentDeckFlashcards
-        if (currentFlashcard === 0) {
-            previousFlashcardBtn.disabled = true;
-            if (currentDeckFlashcards[1]) {
-                nextFlashcardBtn.disabled = false;
-            } else {
-                nextFlashcardBtn.disabled = true;
-            }
-        } else if (currentFlashcard === (theDeck.length - 1)) {
-            nextFlashcardBtn.disabled = true;
-            previousFlashcardBtn.disabled = false;
-        } else if (currentFlashcard === null) {
-            previousFlashcardBtn.disabled = true;
-            nextFlashcardBtn.disabled = true;
-        } else {
-            previousFlashcardBtn.disabled = false;
-            nextFlashcardBtn.disabled = false;
-        }
-    }
-
-    //flip Flashcard
     static flipFlashcard = () => {
         $('.flip').toggleClass('flip-active');
         const fcId = document.getElementById("front")
@@ -90,7 +88,29 @@ class Flashcard {
         }
     }
 
-    //new flashcard
+    //Button Toggle Methods
+    static statusCheck = () => {
+        const theDeck = currentDeckFlashcards
+        if (currentFlashcard === 0) {
+            previousFlashcardBtn.disabled = true;
+            if (currentDeckFlashcards[1]) {
+                nextFlashcardBtn.disabled = false;
+            } else {
+                nextFlashcardBtn.disabled = true;
+            }
+        } else if (currentFlashcard === (theDeck.length - 1)) {
+            nextFlashcardBtn.disabled = true;
+            previousFlashcardBtn.disabled = false;
+        } else if (currentFlashcard === null) {
+            previousFlashcardBtn.disabled = true;
+            nextFlashcardBtn.disabled = true;
+        } else {
+            previousFlashcardBtn.disabled = false;
+            nextFlashcardBtn.disabled = false;
+        }
+    }
+
+    //Post New Flashcard Methods
     static newFlashcard = () => {
         flashcardContainer.innerHTML = `
         <form id='new-flashcard-form'>
@@ -142,26 +162,7 @@ class Flashcard {
         })
     }
 
-    static getFlashcards = () => {
-        currentDeckFlashcards = [];
-        const deckId = parseInt(Deck.search(currentDeck).id)
-        fetch(flashcardEndPoint , {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
-            }
-        })
-        .then(response => response.json())
-        .then(json => {
-            let arr = json.data.filter(flashcard => flashcard.attributes.deck_id === deckId)
-            arr.forEach(card => currentDeckFlashcards.push(card))
-            Flashcard.displayFlashcard(currentFlashcard);
-        });
-    }
-
-    // edit methods
+    // Edit Flashcard Methods
     static editFlashcard = () => {
         const fcId = document.querySelector('#flashcard-container p').dataset.id
         fetch(flashcardEndPoint + `/${fcId}`, {
@@ -226,11 +227,11 @@ class Flashcard {
         })
     }
 
-    // delete functions
+    // Delete Flashcard Methods
     static deleteFlashcard = () => {
         const r = confirm("Are you sure you want to Delete?")
         if (r !== true) {
-            Flashcard.displayFlashcard(currentFlashcard)
+            this.displayFlashcard(currentFlashcard)
         } else {
             const fcId = document.querySelector('#flashcard-container p').dataset.id // "6"
             const fc = currentDeckFlashcards.find(e => e.id === fcId) // flashcard object

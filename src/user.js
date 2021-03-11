@@ -1,13 +1,8 @@
 class User {
-    
+    // Login Methods
     static loginLinkHandler = () => {
         loginDiv.hidden = false;
         signupDiv.hidden = true;
-    }
-
-    static signupLinkHandler = () => {
-        loginDiv.hidden = true;
-        signupDiv.hidden = false;
     }
     
     static loginFormHandler = (e) => {
@@ -15,13 +10,6 @@ class User {
         const usernameInput = e.target.querySelector("#login-username").value
         const passwordInput = e.target.querySelector("#login-password").value
         this.loginFetch(usernameInput, passwordInput)
-    }
-
-    static signupFormHandler = (e) => {
-        e.preventDefault();
-        const usernameInput = e.target.querySelector("#signup-username").value
-        const passwordInput = e.target.querySelector("#signup-password").value
-        this.signupFetch(usernameInput, passwordInput)
     }
 
     static loginFetch = (username, password) => {
@@ -39,7 +27,7 @@ class User {
         })
         .then((response) => {
             if(response.status === 401) {
-                User.renderError(response)
+                this.renderError(response)
             } else {
                 return response.json()
             }
@@ -53,6 +41,19 @@ class User {
             mainContainer.hidden = false;
             Deck.getDecks(userId)
         })
+    }
+
+    // Sign Up Methods
+    static signupLinkHandler = () => {
+        loginDiv.hidden = true;
+        signupDiv.hidden = false;
+    }
+
+    static signupFormHandler = (e) => {
+        e.preventDefault();
+        const usernameInput = e.target.querySelector("#signup-username").value
+        const passwordInput = e.target.querySelector("#signup-password").value
+        this.signupFetch(usernameInput, passwordInput)
     }
 
     static signupFetch = (username, password) => {
@@ -70,7 +71,7 @@ class User {
         })
         .then((response) => {
             if(response.status === 406) {
-                User.renderError(response)
+                this.renderError(response)
             } else {
                 return response.json()
             }
@@ -78,6 +79,7 @@ class User {
         .then(json => {
             localStorage.setItem('jwt_token', json.jwt)
             const userId = json.user.data.id
+            localStorage.setItem('currentUser', userId)
 
             signupDiv.hidden = true;
             mainContainer.hidden = false;
@@ -85,6 +87,7 @@ class User {
         })
     }
 
+    // Error Method
     static renderError = (response) => {
         response.json().then(error => {
             console.log(error)

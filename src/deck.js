@@ -17,14 +17,29 @@ class Deck {
         return this.all[num]
     }
 
-    //render and attach Syllabus to DOM
+    // Get all User Decks
+    static getDecks = (id) => {
+        fetch(userEndPoint + `/${id}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
+            }
+        })
+        .then(response => response.json())
+        .then(json => json.data.attributes.decks.forEach(deck => {
+            let newDeck = new Deck(deck)
+            newDeck.renderDeck()
+            })
+        );
+    }
+
+    //Render & Attach Deck to DOM
     renderDeck = () => {
         const deckLi = document.createElement('li');
         const deckP = document.createElement('p');
         const deckDelBtn = document.createElement('button');
 
         deckLi.className = 'list-group-item d-flex justify-content-between align-items-center"'
-
         deckLi.dataset.id = deckCount
         deckLi.id = this.title
 
@@ -37,7 +52,6 @@ class Deck {
         
         deckCount++;
 
-        //add eventListeners for click on LI
         deckP.addEventListener('click', this.handleDeckClick)
         deckDelBtn.addEventListener('click', this.deleteDeck)
 
@@ -63,62 +77,7 @@ class Deck {
         deleteFlashcardBtn.disabled = false;
     }
 
-    static getDecks = (id) => {
-        fetch(userEndPoint + `/${id}`, {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
-            }
-        })
-        .then(response => response.json())
-        .then(json => json.data.attributes.decks.forEach(deck => {
-            let newDeck = new Deck(deck)
-            newDeck.renderDeck()
-            })
-        );
-    }
-
-    // delete fetch request
-    deleteDeck = (e) => {
-        const r = confirm("Are you sure? This will also delete also associated flashcards.")
-        if (r !== true) {
-            decksList.innerHTML = "";
-            currentDeck = null;
-            currentFlashcard = null;
-            deckCount = 0;
-            Deck.all.forEach(deck => {
-                deck.renderDeck();
-            })
-        } else {
-            const deckId = parseInt(e.target.parentElement.dataset.id) //index in Deck.all
-            const deck = Deck.search(deckId) // actual deck
-    
-            fetch(deckEndPoint + `/${deck.id}`, {
-                method: 'DELETE',
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
-                }
-            })
-            .then(resp => resp.json())
-            .then(decks => {
-                console.log(decks);
-                currentDeck = null;
-                currentFlashcard = null;
-                deckCount = 0;
-                Deck.all.splice(deckId, 1)
-                decksList.innerHTML = "";
-    
-                Deck.all.forEach(deck => {
-                    deck.renderDeck();
-                })
-            })
-
-        }
-    }
-
-
+    // Post New Deck Methods
     static handleNewDeckDisplay = () => {
         const newDeckForm = document.getElementById('new-deck')
         if (newDeckForm.style.display === 'none') {
@@ -162,14 +121,56 @@ class Deck {
         })
         .then(deck => {
             console.log(deck);
-            const deckData = Object.assign({}, {id: deck.data.id}, {type: deck.data.type}, deck.data.attributes)
+            const deckData = Object.assign({}, {id: parseInt(deck.data.id)}, {type: deck.data.type}, deck.data.attributes)
             const newDeck = new Deck(deckData)
             newDeck.renderDeck()
-            currentDeck = parseInt(newDeck.id) - 1 //same as dataset-id of the li its in
+            const newDeckDataId = document.querySelector("#decks-list").lastElementChild.dataset.id
+            currentDeck = parseInt(newDeckDataId)
             currentFlashcard = null
             currentDeckFlashcards = [];
+            Deck.enableButtons()
             Flashcard.displayFlashcard(currentFlashcard)
         })
     }
 
+    // Delete Deck Method
+    deleteDeck = (e) => {
+        const r = confirm("Are you sure? This will also delete also associated flashcards.")
+        if (r !== true) {
+            decksList.innerHTML = "";
+            currentDeck = null;
+            currentFlashcard = null;
+            deckCount = 0;
+            Deck.all.forEach(deck => {
+                deck.renderDeck();
+            })
+        } else {
+            const deckId = parseInt(e.target.parentElement.dataset.id) // index in Deck.all
+            const deck = Deck.search(deckId) // actual deck
+    
+            fetch(deckEndPoint + `/${deck.id}`, {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem('jwt_token')}`
+                }
+            })
+            .then(resp => resp.json())
+            .then(decks => {
+                console.log(decks);
+                currentDeck = null;
+                currentFlashcard = null;
+                deckCount = 0;
+                Deck.all.splice(deckId, 1)
+                decksList.innerHTML = "";
+    
+                Deck.all.forEach(deck => {
+                    deck.renderDeck();
+                })
+            })
+
+        }
+    }
+     
 }

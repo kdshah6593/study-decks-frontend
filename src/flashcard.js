@@ -115,12 +115,12 @@ class Flashcard {
         flashcardContainer.innerHTML = `
         <form id='new-flashcard-form'>
             <label for="front">Front: </label>
-            <input id='input-front' type='text' name='front' value="" placeholder="Front of Flashcard">
+            <input id='input-front' type='text' class='form-control' name='front' value="" placeholder="Front of Flashcard">
             <br>
             <label for="back">Back: </label>
-            <input id='input-back' type='text' name='back' value="" placeholder="Back of Flashcard">
+            <textarea id='input-back' name='back' class='form-control' value="" placeholder="Back of Flashcard"></textarea>
             <br>
-            <input id='create-flashcard-button' type='submit' name='flashcard-submit' value="Create New Flashcard">
+            <input id='create-flashcard-button' type='submit' class='btn btn-primary' name='flashcard-submit' value="Create New Flashcard">
         </form>`
         const newForm = document.getElementById('new-flashcard-form')
         newForm.addEventListener('submit', Flashcard.handleNewFlashcardSubmit)

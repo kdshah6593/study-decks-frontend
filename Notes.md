@@ -1,6 +1,3 @@
-Next Steps
-# Refactor
-
 # Stretch Goals
 1. Keep Track with Pill Badge the number of flashcards in the deck
 2. A Test Function

@@ -26,9 +26,9 @@ In your terminal running the FRONTEND:
 Run `$ explorer.exe index.html` (for Windows/WSL sytems) or `open index.html` (for Macs); this will open up the frontend page in your default browser
 
 ## Contributing
-Stretch goals in progress are listed in the [Notes.md](https://github.com/kdshah6593/study-decks-frontend/blob/main/Notes.md)
+Stretch goals in progress are listed in the [Notes.md](https://github.com/kdshah6593/study-decks-frontend/blob/master/Notes.md)
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/kdshah6593/study-decks-frontend. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Code of Conduct](https://github.com/kdshah6593/study-decks-frontend/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/kdshah6593/study-decks-frontend. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Code of Conduct](https://github.com/kdshah6593/study-decks-frontend/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 This app is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

@@ -121,10 +121,11 @@ class Deck {
         })
         .then(deck => {
             console.log(deck);
-            const deckData = Object.assign({}, {id: deck.data.id}, {type: deck.data.type}, deck.data.attributes)
+            const deckData = Object.assign({}, {id: parseInt(deck.data.id)}, {type: deck.data.type}, deck.data.attributes)
             const newDeck = new Deck(deckData)
             newDeck.renderDeck()
-            currentDeck = parseInt(newDeck.id) - 1 //same as dataset-id of the li its in
+            const newDeckDataId = document.querySelector("#decks-list").lastElementChild.dataset.id
+            currentDeck = parseInt(newDeckDataId)
             currentFlashcard = null
             currentDeckFlashcards = [];
             Flashcard.displayFlashcard(currentFlashcard)

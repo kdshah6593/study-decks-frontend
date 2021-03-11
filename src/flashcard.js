@@ -51,12 +51,24 @@ class Flashcard {
 
     static nextFlashcard = () => {
         currentFlashcard++;
-        this.displayFlashcard(currentFlashcard)
+        const fcId = document.getElementById("back")
+        if (fcId == null) {
+            this.displayFlashcard(currentFlashcard)    
+        } else {
+            $('.flip').toggleClass('flip-active');
+            this.displayFlashcard(currentFlashcard)
+        }
     }
 
     static previousFlashcard = () => {
         currentFlashcard--;
-        this.displayFlashcard(currentFlashcard)
+        const fcId = document.getElementById("back")
+        if (fcId == null) {
+            this.displayFlashcard(currentFlashcard)    
+        } else {
+            $('.flip').toggleClass('flip-active');
+            this.displayFlashcard(currentFlashcard)
+        }
     }
 
     static lastFlashcard = () => {

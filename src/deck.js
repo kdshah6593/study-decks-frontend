@@ -128,6 +128,7 @@ class Deck {
             currentDeck = parseInt(newDeckDataId)
             currentFlashcard = null
             currentDeckFlashcards = [];
+            Deck.enableButtons()
             Flashcard.displayFlashcard(currentFlashcard)
         })
     }

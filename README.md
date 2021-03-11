@@ -1,13 +1,13 @@
 # StudyDecks
 This is the documentation for the frontend of the StudyDecks web app developed as a JavaScript project for Flatiron School.
 
-The backend is available at `https://github.com/kdshah6593/study-decks-backend`
+The backend repo is available at `https://github.com/kdshah6593/study-decks-backend`
 
 ## Description
 StudyDecks is a web application developed using JavaScript on the Frontend and Rails as an API as the backend. This web app is intended as a simple study tool for users. A user can have multiple decks and within each deck they can create flashcards and go between them. A user can flip the flashcard over, thus they can quiz themselves.
 
 ## Installation
-To use this app, check out the deployed version at -- link will go here --
+To use this app, check out the deployed version at [StudyDecks](https://study-decks.herokuapp.com/)
 
 To play around with the code of the app, clone these repos:
 1. `$ git clone https://github.com/kdshah6593/study-decks-frontend`

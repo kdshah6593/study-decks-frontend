@@ -106,7 +106,7 @@ li p {
     transform: rotateY(180deg);
 }
 
-.sub-title {
+h6.sub-title {
     font-family: 'Montserrat', sans-serif;
     margin-top: 25px;
 }

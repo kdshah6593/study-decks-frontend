@@ -1,4 +1,4 @@
-const flashcardEndPoint = "http://localhost:3000/api/v1/flashcards";
+const flashcardEndPoint = "https://study-decks.herokuapp.com/api/v1/flashcards";
 let currentDeckFlashcards = [];
 
 class Flashcard { 

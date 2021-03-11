@@ -17,7 +17,7 @@ class User {
             username: username,
             password: password
         }}
-        fetch("http://localhost:3000/api/v1/login", {
+        fetch("https://study-decks.herokuapp.com/api/v1/login", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -61,7 +61,7 @@ class User {
             username: username,
             password: password
         }}
-        fetch("http://localhost:3000/api/v1/users", {
+        fetch("https://study-decks.herokuapp.com/api/v1/users", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

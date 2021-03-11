@@ -1,5 +1,6 @@
-const deckEndPoint = "http://localhost:3000/api/v1/decks";
-const userEndPoint = "http://localhost:3000/api/v1/users";
+const deckEndPoint = "https://study-decks.herokuapp.com/api/v1/decks";
+const userEndPoint = "https://study-decks.herokuapp.com/api/v1/users";
+
 let deckCount = 0;
 
 class Deck {

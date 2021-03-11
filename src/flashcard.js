@@ -118,7 +118,7 @@ class Flashcard {
             <input id='input-front' type='text' class='form-control' name='front' value="" placeholder="Front of Flashcard">
             <br>
             <label for="back">Back: </label>
-            <textarea id='input-back' name='back' class='form-control' value="" placeholder="Back of Flashcard"></textarea>
+            <textarea id='input-back' name='back' class='form-control' placeholder="Back of Flashcard"></textarea>
             <br>
             <input id='create-flashcard-button' type='submit' class='btn btn-primary' name='flashcard-submit' value="Create New Flashcard">
         </form>`
@@ -187,12 +187,12 @@ class Flashcard {
             <input type='hidden' id='input-id' name='id' value='${card.id}'>
             <input type='hidden' id='input-deck-id' name='deck-id' value='${card.attributes.deck_id}'>
             <label for="front">Front: </label>
-            <input id='input-front' type='text' name='front' value="${card.attributes.front}">
+            <input id='input-front' type='text' class='form-control' name='front' value="${card.attributes.front}">
             <br>
             <label for="back">Back: </label>
-            <input id='input-back' type='text' name='back' value="${card.attributes.back}">
+            <textarea id='input-back' type='text' class='form-control' name='back'>${card.attributes.back}</textarea>
             <br>
-            <input id='create-flashcard-button' type='submit' name='flashcard-submit' value="Update Flashcard">
+            <input id='create-flashcard-button' type='submit' class='btn btn-primary' name='flashcard-submit' value="Update Flashcard">
         </form>`
         const editForm = document.getElementById('edit-flashcard-form')
         editForm.addEventListener('submit', Flashcard.handleEditFlashcardSubmit)

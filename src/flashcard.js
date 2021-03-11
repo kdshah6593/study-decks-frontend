@@ -112,7 +112,8 @@ class Flashcard {
 
     //Post New Flashcard Methods
     static newFlashcard = () => {
-        flashcardContainer.innerHTML = `
+        const fcId = document.getElementById("back")
+        const newFlashcardForm = `
         <form id='new-flashcard-form'>
             <label for="front">Front: </label>
             <input id='input-front' type='text' class='form-control' name='front' value="" placeholder="Front of Flashcard">
@@ -122,6 +123,13 @@ class Flashcard {
             <br>
             <input id='create-flashcard-button' type='submit' class='btn btn-primary' name='flashcard-submit' value="Create New Flashcard">
         </form>`
+        
+        if (fcId === null) {
+            flashcardContainer.innerHTML = newFlashcardForm
+        } else {
+            $('.flip').toggleClass('flip-active');
+            flashcardContainer.innerHTML = newFlashcardForm
+        }
         const newForm = document.getElementById('new-flashcard-form')
         newForm.addEventListener('submit', Flashcard.handleNewFlashcardSubmit)
     }
@@ -164,8 +172,8 @@ class Flashcard {
 
     // Edit Flashcard Methods
     static editFlashcard = () => {
-        const fcId = document.querySelector('#flashcard-container p').dataset.id
-        fetch(flashcardEndPoint + `/${fcId}`, {
+        const fcDataId = document.querySelector('#flashcard-container p').dataset.id
+        fetch(flashcardEndPoint + `/${fcDataId}`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
@@ -175,9 +183,14 @@ class Flashcard {
         })
         .then(response => response.json())
         .then(json => {
-            console.log(json)
+            const fcId = document.getElementById("back")
             const fc = json.data
-            Flashcard.renderEditForm(fc)
+            if (fcId === null) {
+                Flashcard.renderEditForm(fc)
+            } else {
+                $('.flip').toggleClass('flip-active');
+                Flashcard.renderEditForm(fc)
+            }
         });
     }
 

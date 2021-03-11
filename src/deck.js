@@ -1,5 +1,5 @@
-const deckEndPoint = "https://study-decks.herokuapp.com/api/v1/decks";
-const userEndPoint = "https://study-decks.herokuapp.com/api/v1/users";
+const deckEndPoint = "https://study-decks-backend.herokuapp.com/api/v1/decks";
+const userEndPoint = "https://study-decks-backend.herokuapp.com/api/v1/users";
 
 let deckCount = 0;
 

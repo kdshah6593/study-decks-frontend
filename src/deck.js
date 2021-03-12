@@ -40,7 +40,7 @@ class Deck {
         const deckP = document.createElement('p');
         const deckDelBtn = document.createElement('button');
 
-        deckLi.className = 'list-group-item d-flex justify-content-between align-items-center"'
+        deckLi.className = 'list-group-item d-flex justify-content-between align-items-center'
         deckLi.dataset.id = deckCount
         deckLi.id = this.title
 
@@ -63,6 +63,9 @@ class Deck {
 
     handleDeckClick = (e) => {
         let parent = e.target.parentElement
+        const deckLis = document.querySelectorAll(".list-group-item")
+        deckLis.forEach(deckLi => deckLi.classList.remove("clicked"));
+        parent.className += " clicked";
         currentDeck = parseInt(parent.dataset.id) //string number to integer number
         currentFlashcard = null //resets flashcards
         const fcId = document.getElementById("back")
@@ -133,6 +136,7 @@ class Deck {
             const newDeck = new Deck(deckData)
             newDeck.renderDeck()
             const newDeckDataId = document.querySelector("#decks-list").lastElementChild.dataset.id
+            document.querySelector("#decks-list").lastElementChild.className += " clicked"
             currentDeck = parseInt(newDeckDataId)
             currentFlashcard = null
             currentDeckFlashcards = [];

@@ -49,6 +49,10 @@ li p {
     background-color: #E8F1E0;
 }
 
+.clicked {
+    background-color: #C2E895;
+}
+
 .form-signin {
     width: 100%;
     max-width: 330px;

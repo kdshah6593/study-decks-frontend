@@ -27,11 +27,15 @@ class Deck {
             }
         })
         .then(response => response.json())
-        .then(json => json.data.attributes.decks.forEach(deck => {
-            let newDeck = new Deck(deck)
-            newDeck.renderDeck()
-            })
-        );
+        .then(json => {
+            if (json.data.attributes.decks.length === 0) {
+                alert("Click New Deck in the Left Menu to Get Started!")
+            } else {
+                json.data.attributes.decks.forEach(deck => {
+                let newDeck = new Deck(deck)
+                newDeck.renderDeck()
+            })}   
+        });
     }
 
     //Render & Attach Deck to DOM
@@ -40,7 +44,7 @@ class Deck {
         const deckP = document.createElement('p');
         const deckDelBtn = document.createElement('button');
 
-        deckLi.className = 'list-group-item d-flex justify-content-between align-items-center"'
+        deckLi.className = 'list-group-item d-flex justify-content-between align-items-center'
         deckLi.dataset.id = deckCount
         deckLi.id = this.title
 
@@ -63,10 +67,20 @@ class Deck {
 
     handleDeckClick = (e) => {
         let parent = e.target.parentElement
+        const deckLis = document.querySelectorAll(".list-group-item")
+        deckLis.forEach(deckLi => deckLi.classList.remove("clicked"));
+        parent.className += " clicked";
         currentDeck = parseInt(parent.dataset.id) //string number to integer number
         currentFlashcard = null //resets flashcards
-        Deck.enableButtons()
-        Flashcard.getFlashcards()
+        const fcId = document.getElementById("back")
+        if (fcId == null) {
+            Deck.enableButtons()
+            Flashcard.getFlashcards()
+        } else {
+            $('.flip').toggleClass('flip-active');
+            Deck.enableButtons()
+            Flashcard.getFlashcards()
+        }
     }
 
     static enableButtons = () => {
@@ -126,6 +140,7 @@ class Deck {
             const newDeck = new Deck(deckData)
             newDeck.renderDeck()
             const newDeckDataId = document.querySelector("#decks-list").lastElementChild.dataset.id
+            document.querySelector("#decks-list").lastElementChild.className += " clicked"
             currentDeck = parseInt(newDeckDataId)
             currentFlashcard = null
             currentDeckFlashcards = [];

@@ -65,8 +65,15 @@ class Deck {
         let parent = e.target.parentElement
         currentDeck = parseInt(parent.dataset.id) //string number to integer number
         currentFlashcard = null //resets flashcards
-        Deck.enableButtons()
-        Flashcard.getFlashcards()
+        const fcId = document.getElementById("back")
+        if (fcId == null) {
+            Deck.enableButtons()
+            Flashcard.getFlashcards()
+        } else {
+            $('.flip').toggleClass('flip-active');
+            Deck.enableButtons()
+            Flashcard.getFlashcards()
+        }
     }
 
     static enableButtons = () => {

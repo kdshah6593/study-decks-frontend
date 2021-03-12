@@ -27,11 +27,15 @@ class Deck {
             }
         })
         .then(response => response.json())
-        .then(json => json.data.attributes.decks.forEach(deck => {
-            let newDeck = new Deck(deck)
-            newDeck.renderDeck()
-            })
-        );
+        .then(json => {
+            if (json.data.attributes.decks.length === 0) {
+                alert("Click New Deck in the Left Menu to Get Started!")
+            } else {
+                json.data.attributes.decks.forEach(deck => {
+                let newDeck = new Deck(deck)
+                newDeck.renderDeck()
+            })}   
+        });
     }
 
     //Render & Attach Deck to DOM
